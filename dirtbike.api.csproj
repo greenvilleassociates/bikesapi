@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="SQLDATA\" />
   </ItemGroup>
+
 <ItemGroup>
   <None Update="SQLDATA\dirtbike.db">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

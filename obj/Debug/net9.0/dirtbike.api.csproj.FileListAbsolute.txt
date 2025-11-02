@@ -723,3 +723,4 @@ X:/G547/mountainproject/dirtbike.api/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnal
 /home/547G/mountainproject/dirtbike.api/obj/Debug/net9.0/dirtbike.api.pdb
 /home/547G/mountainproject/dirtbike.api/obj/Debug/net9.0/dirtbike.api.genruntimeconfig.cache
 /home/547G/mountainproject/dirtbike.api/obj/Debug/net9.0/ref/dirtbike.api.dll
+/home/547G/mountainproject/dirtbike.api/bin/Debug/net9.0/SQLDATA/dirtbike.db

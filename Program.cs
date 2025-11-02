@@ -1,26 +1,67 @@
+using Enterprise.Controllers;
+using System.Text.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+// Load CORS settings from appsettings.json
+var corsSettings = builder.Configuration.GetSection("Cors");
+var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
+var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>();
+var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>();
+
+// Add services
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Register CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("UnifiedCors", policy =>
+    {
+        policy.SetIsOriginAllowed(origin =>
+            string.IsNullOrEmpty(origin) || origin == "null" || allowedOrigins.Contains(origin))
+            .WithMethods(allowedMethods)
+            .WithHeaders(allowedHeaders);
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
-
+// Use middleware
+app.UseCors("UnifiedCors");
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapCartEndpoints();
+app.MapParksEndpoints();
+app.MapApilogEndpoints();
+app.MapUserlogEndpoints();
+app.MapCardEndpoints();
+app.MapBookingEndpoints();
+//app.MapTestBookingEndpoints();
+app.MapUserEndpoints();
+app.MapUserprofileEndpoints();
+app.MapUsersessionEndpoints();
+app.MapSessionlogEndpoints();
+app.MapSalesCatalogueEndpoints();
+app.MapPaymentEndpoints();
+app.MapCustomerEndpoints();
+app.MapParkReviewEndpoints();
+app.MapEmployeeEndpoints();
+app.MapCompanyEndpoints();
+app.MapSiteEndpoints();
+app.MapCartitemEndpoints();
+app.MapCartMasterEndpoints();
+app.MapEmailNotificationEndpoints();
+app.MapAdminlogsEndpoints();
+app.MapSuperuserlogEndpoints();
+app.MapNoctechsEndpoints();
+app.MapControllers();
+app.MapLearnlogEndpoints();
+app.MapUseractionEndpoints();
+app.MapUsergroupsEndpoints();
+//app.MapUseractionEndpoints();
+app.MapUserhelpEndpoints();
+app.MapBatchEndpoints();
+app.MapBatchtypeEndpoints();
 app.Run();
