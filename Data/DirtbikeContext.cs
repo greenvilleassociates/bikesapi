@@ -72,15 +72,8 @@ public partial class DirtbikeContext : DbContext
 
     public virtual DbSet<Usersession> Usersessions { get; set; }
 
-protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-{
-    var dbPath = Path.Combine(
-        Environment.GetEnvironmentVariable("HOME"),
-        "data", "SQLDATA", "dirtbike.db"
-    );
-
-    optionsBuilder.UseSqlite($"Data Source={dbPath}");
-}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlite("Data Source=./SQLDATA/dirtbike.db");
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
