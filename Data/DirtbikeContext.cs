@@ -20,6 +20,10 @@ public partial class DirtbikeContext : DbContext
 
     public virtual DbSet<Apilog> Apilogs { get; set; }
 
+    public virtual DbSet<Batch> Batches { get; set; }
+
+    public virtual DbSet<Batchtype> Batchtypes { get; set; }
+
     public virtual DbSet<Booking> Bookings { get; set; }
 
     public virtual DbSet<Card> Cards { get; set; }
@@ -56,6 +60,10 @@ public partial class DirtbikeContext : DbContext
 
     public virtual DbSet<Superuserlog> Superuserlogs { get; set; }
 
+    public virtual DbSet<TaxtableState> TaxtableStates { get; set; }
+
+    public virtual DbSet<TaxtableU> TaxtableUs { get; set; }
+
     public virtual DbSet<Template> Templates { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -72,16 +80,9 @@ public partial class DirtbikeContext : DbContext
 
     public virtual DbSet<Usersession> Usersessions { get; set; }
 
-protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-{
-    var dbPath = Path.Combine(
-        Environment.GetEnvironmentVariable("HOME"),
-        "data", "SQLDATA", "dirtbike.db"
-    );
-
-    optionsBuilder.UseSqlite($"Data Source={dbPath}");
-}
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlite("Data Source=./SQLDATA/dirtbike.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +114,39 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             entity.Property(e => e.Eptype).HasColumnName("eptype");
             entity.Property(e => e.Hashid).HasColumnName("hashid");
             entity.Property(e => e.Parameterlist).HasColumnName("parameterlist");
+        });
+
+        modelBuilder.Entity<Batch>(entity =>
+        {
+            entity.ToTable("batches");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Batchend)
+                .HasColumnType("DATE")
+                .HasColumnName("batchend");
+            entity.Property(e => e.Batchname).HasColumnName("batchname");
+            entity.Property(e => e.Batchstart)
+                .HasColumnType("DATE")
+                .HasColumnName("batchstart");
+            entity.Property(e => e.Batchstatus).HasColumnName("batchstatus");
+            entity.Property(e => e.Batchtype).HasColumnName("batchtype");
+            entity.Property(e => e.Filelocationpath).HasColumnName("filelocationpath");
+            entity.Property(e => e.Qty).HasColumnName("qty");
+            entity.Property(e => e.Qtyactual).HasColumnName("qtyactual");
+            entity.Property(e => e.Qtyend).HasColumnName("qtyend");
+            entity.Property(e => e.Qtyerror).HasColumnName("qtyerror");
+            entity.Property(e => e.Qtyexpected).HasColumnName("qtyexpected");
+            entity.Property(e => e.Qtystart).HasColumnName("qtystart");
+        });
+
+        modelBuilder.Entity<Batchtype>(entity =>
+        {
+            entity.ToTable("batchtype");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Batchtypename).HasColumnName("batchtypename");
+            entity.Property(e => e.Instance).HasColumnName("instance");
+            entity.Property(e => e.Region).HasColumnName("region");
         });
 
         modelBuilder.Entity<Booking>(entity =>
@@ -219,16 +253,25 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             entity.ToTable("CARTITEM");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Adults)
+                .HasColumnType("INT")
+                .HasColumnName("adults");
             entity.Property(e => e.Cartid).HasColumnName("cartid");
             entity.Property(e => e.Cartitemdate)
                 .HasColumnType("DATETIME")
                 .HasColumnName("cartitemdate");
+            entity.Property(e => e.Children)
+                .HasColumnType("INT")
+                .HasColumnName("children");
             entity.Property(e => e.CreatedDate)
                 .HasColumnType("DATE")
                 .HasColumnName("created_date");
             entity.Property(e => e.Itemdescription).HasColumnName("itemdescription");
             entity.Property(e => e.Itemextendedprice).HasColumnName("itemextendedprice");
             entity.Property(e => e.Itemqty).HasColumnName("itemqty");
+            entity.Property(e => e.Itemsubtotal)
+                .HasColumnType("float")
+                .HasColumnName("itemsubtotal");
             entity.Property(e => e.Itemtotals).HasColumnName("itemtotals");
             entity.Property(e => e.Itemvendor).HasColumnName("itemvendor");
             entity.Property(e => e.Memberid).HasColumnName("memberid");
@@ -246,7 +289,20 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             entity.Property(e => e.Rewardsprovider).HasColumnName("rewardsprovider");
             entity.Property(e => e.Salescatid).HasColumnName("salescatid");
             entity.Property(e => e.Shopid).HasColumnName("shopid");
+            entity.Property(e => e.Statetaxauth).HasColumnName("statetaxauth");
+            entity.Property(e => e.Statetaxpercent)
+                .HasColumnType("float")
+                .HasColumnName("statetaxpercent");
+            entity.Property(e => e.Statetaxtotal)
+                .HasColumnType("float")
+                .HasColumnName("statetaxtotal");
             entity.Property(e => e.Subtotal).HasColumnName("subtotal");
+            entity.Property(e => e.Ustaxpercent)
+                .HasColumnType("float")
+                .HasColumnName("ustaxpercent");
+            entity.Property(e => e.Ustaxtotal)
+                .HasColumnType("float")
+                .HasColumnName("ustaxtotal");
         });
 
         modelBuilder.Entity<Company>(entity =>
@@ -473,6 +529,29 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             entity.Property(e => e.Techid).HasColumnName("techid");
             entity.Property(e => e.Threatlevel).HasColumnName("threatlevel");
             entity.Property(e => e.Userid).HasColumnName("userid");
+        });
+
+        modelBuilder.Entity<TaxtableState>(entity =>
+        {
+            entity.ToTable("TaxtableState");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CorporateTaxRate).HasColumnName("corporate_tax_rate");
+            entity.Property(e => e.IndividualTaxRate).HasColumnName("individual_tax_rate");
+            entity.Property(e => e.State).HasColumnName("state");
+        });
+
+        modelBuilder.Entity<TaxtableU>(entity =>
+        {
+            entity.ToTable("TaxtableUS");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Uscorporateratelow).HasColumnName("uscorporateratelow");
+            entity.Property(e => e.Uscorporateratemiddle).HasColumnName("uscorporateratemiddle");
+            entity.Property(e => e.Uscorporateratetop).HasColumnName("uscorporateratetop");
+            entity.Property(e => e.Uspersonalhigh).HasColumnName("uspersonalhigh");
+            entity.Property(e => e.Uspersonallow).HasColumnName("uspersonallow");
+            entity.Property(e => e.Uspersonalmiddle).HasColumnName("uspersonalmiddle");
         });
 
         modelBuilder.Entity<Template>(entity =>
