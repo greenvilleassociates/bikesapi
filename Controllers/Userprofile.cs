@@ -124,41 +124,40 @@ public static class UserprofileEndpoints
 .WithOpenApi();
 
  group.MapPut("/picture/{id}", async (int id, string profileurl) =>
+{
+    using (var context = new DirtbikeContext())
+    {
+        // 1st Update Userprofiles table
+        var userProfile = context.Userprofiles.FirstOrDefault(m => m.Userid == id);
+        if (userProfile != null && profileurl != null)
         {
-        
-        //FIRST UPDATE THE USER RECORD AS WELL
-            
-            using (var context = new DirtbikeContext())
-            {
-             	var existingProfile = context.Userprofiles.FirstOrDefault(m => m.Userid == id);
-                if (profileurl != null) existingProfile.Activepictureurl = profileurl;
-                await context.SaveChangesAsync();
-            Enterpriseservices.ApiLogger.logapi(
+            userProfile.Activepictureurl = profileurl;
+        }
+
+        // 2nd Update Users table
+        var user = context.Users.FirstOrDefault(m => m.Userid == id);
+        if (user != null && profileurl != null)
+        {
+            user.profileurl = profileurl;
+            user.Activepictureurl = profileurl;
+            user.Activeprofileurl = profileurl;
+        }
+
+        await context.SaveChangesAsync();
+
+        // Logging
+        Enterpriseservices.ApiLogger.logapi(
             Enterpriseservices.Globals.ControllerAPIName,
             Enterpriseservices.Globals.ControllerAPINumber,
-            "PROFILEPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {input.Id}"
+            "PROFILEPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {id}"
         );
-        //SECOND UPDATE THE USER RECORD AS WELL
-        using (var context = new DirtbikeContext())
-            {
-             	var existingProfile = context.Users.FirstOrDefault(m => m.Userid == id);
-                if (profileurl != null) existingProfile.profileurl = profileurl;
-                if (profileurl != null) existingProfile.Activepictureurl = profileurl;
-                if (profileurl != null) existingProfile.Activeprofileurl = profileurl;
-                
-                await context.SaveChangesAsync();
-            Enterpriseservices.ApiLogger.logapi(
-            Enterpriseservices.Globals.ControllerAPIName,
-            Enterpriseservices.Globals.ControllerAPINumber,
-            "USERPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {input.Id}"
-        );
-                
-        return TypedResults.Accepted($"Updated UserID: {input.Userid}");
+
     }
+
+    return TypedResults.Accepted($"Updated UserID Picture: {id}, {profileurl}");
 })
 .WithName("UpdatePicture")
 .WithOpenApi();
-
 
 
 
