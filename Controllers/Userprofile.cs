@@ -141,7 +141,7 @@ public static class UserprofileEndpoints
         //SECOND UPDATE THE USER RECORD AS WELL
         using (var context = new DirtbikeContext())
             {
-             	var existingProfile = context.Users.FirstOrDefault(m => m.id == id);
+             	var existingProfile = context.Users.FirstOrDefault(m => m.Userid == id);
                 if (profileurl != null) existingProfile.profileurl = profileurl;
                 if (profileurl != null) existingProfile.Activepictureurl = profileurl;
                 if (profileurl != null) existingProfile.Activeprofileurl = profileurl;
