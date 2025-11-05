@@ -123,6 +123,73 @@ public static class UserprofileEndpoints
 .WithName("UpdateUserprofile")
 .WithOpenApi();
 
+ group.MapPut("/picture/{id}", async (int id, string profileurl) =>
+        {
+        
+        //FIRST UPDATE THE USER RECORD AS WELL
+            
+            using (var context = new DirtbikeContext())
+            {
+             	var existingProfile = context.Userprofiles.FirstOrDefault(m => m.Userid == id);
+                if (profileurl != null) existingProfile.Activepictureurl = profileurl;
+                await context.SaveChangesAsync();
+            Enterpriseservices.ApiLogger.logapi(
+            Enterpriseservices.Globals.ControllerAPIName,
+            Enterpriseservices.Globals.ControllerAPINumber,
+            "PROFILEPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {input.Id}"
+        );
+        //SECOND UPDATE THE USER RECORD AS WELL
+        using (var context = new DirtbikeContext())
+            {
+             	var existingProfile = context.User.FirstOrDefault(m => m.id == id);
+                if (profileurl != null) existingProfile.profileurl = profileurl;
+                if (profileurl != null) existingProfile.Activepictureurl = profileurl;
+                if (profileurl != null) existingProfile.Activeprofileurl = profileurl;
+                
+                await context.SaveChangesAsync();
+            Enterpriseservices.ApiLogger.logapi(
+            Enterpriseservices.Globals.ControllerAPIName,
+            Enterpriseservices.Globals.ControllerAPINumber,
+            "USERPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {input.Id}"
+        );
+                
+        return TypedResults.Accepted($"Updated UserID: {input.Userid}");
+    }
+})
+.WithName("UpdatePicture")
+.WithOpenApi();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+        
+
 
         group.MapPost("/", async (Userprofile input) =>
         {
