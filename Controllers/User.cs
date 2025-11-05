@@ -62,7 +62,21 @@ public static class UserEndpoints
         .WithName("GetUserByUserId")
         .WithOpenApi();
 
-
+        //[HttpPut]
+        group.MapPut("/password/{id}", async (int id, string someplainpassword) =>
+        {
+            using (var context = new DirtbikeContext())
+            {
+                User[] someUser = context.Users.Where(m => m.Userid == id).ToArray();
+                context.Users.Attach(someUser[0]);
+                if (someplainpassword != null) someUser[0].plainpassword = plainpassword;
+                await context.SaveChangesAsync();
+                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
+                return TypedResults.Accepted("Updated ID:" + input.Userid);
+            }
+        })
+        .WithName("UpdatePassword")
+        .WithOpenApi();
 
 
         //[HttpPut]
