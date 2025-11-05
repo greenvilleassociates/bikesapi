@@ -86,6 +86,7 @@ public static class UserEndpoints
             {
                 User[] someUser = context.Users.Where(m => m.Userid == id).ToArray();
                 context.Users.Attach(someUser[0]);
+                if (input.Userid != null) someUser[0].Userid = input.Userid;
                 if (input.Fullname != null) someUser[0].Fullname = input.Fullname;
                 if (input.Firstname != null) someUser[0].Firstname = input.Firstname;
 if (input.Lastname != null) someUser[0].Lastname = input.Lastname;
