@@ -69,10 +69,10 @@ public static class UserEndpoints
             {
                 User[] someUser = context.Users.Where(m => m.Userid == id).ToArray();
                 context.Users.Attach(someUser[0]);
-                if (someplainpassword != null) someUser[0].plainpassword = plainpassword;
+                if (someplainpassword != null) someUser[0].Plainpassword = someplainpassword;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
-                return TypedResults.Accepted("Updated ID:" + input.Userid);
+                return TypedResults.Accepted("Updated ID:" + id);
             }
         })
         .WithName("UpdatePassword")

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
@@ -123,72 +123,6 @@ public static class UserprofileEndpoints
 .WithName("UpdateUserprofile")
 .WithOpenApi();
 
- group.MapPut("/picture/{id}", async (int id, string profileurl) =>
-{
-    using (var context = new DirtbikeContext())
-    {
-        // 1st Update Userprofiles table
-        var userProfile = context.Userprofiles.FirstOrDefault(m => m.Userid == id);
-        if (userProfile != null && profileurl != null)
-        {
-            userProfile.Activepictureurl = profileurl;
-        }
-
-        // 2nd Update Users table
-        var user = context.Users.FirstOrDefault(m => m.Userid == id);
-        if (user != null && profileurl != null)
-        {
-            user.profileurl = profileurl;
-            user.Activepictureurl = profileurl;
-            user.Activeprofileurl = profileurl;
-        }
-
-        await context.SaveChangesAsync();
-
-        // Logging
-        Enterpriseservices.ApiLogger.logapi(
-            Enterpriseservices.Globals.ControllerAPIName,
-            Enterpriseservices.Globals.ControllerAPINumber,
-            "PROFILEPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {id}"
-        );
-
-    }
-
-    return TypedResults.Accepted($"Updated UserID Picture: {id}, {profileurl}");
-})
-.WithName("UpdatePicture")
-.WithOpenApi();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-        
-
 
         group.MapPost("/", async (Userprofile input) =>
         {
@@ -222,27 +156,42 @@ public static class UserprofileEndpoints
         })
         .WithName("DeleteUserprofile")
         .WithOpenApi();
+    
+    
+    		group.MapPut("/picture/{id}", async (int id, ProfileDetail input) =>
+            {
+                using (var context = new DirtbikeContext())
+                {               
+                
+                Userprofile[] someUserprofile = context.Userprofiles.Where(m => m.Userid == id).ToArray();
+                context.Userprofiles.Attach(someUserprofile[0]);
+                if (input.profileurl != null) 
+                {
+                someUserprofile[0].Activepictureurl = input.profileurl;
+                }
+                
+                User[] someUser = context.Users.Where(m => m.Userid == id).ToArray();
+                context.Users.Attach(someUser[0]);
+                if (input.profileurl != null) 
+                {
+                someUser[0].Profileurl = input.profileurl;
+                someUser[0].Activepictureurl = input.profileurl;
+                someUser[0].Activeprofileurl = input.profileurl;
+                }
+
+                    await context.SaveChangesAsync();
+
+                    Enterpriseservices.ApiLogger.logapi(
+                        Enterpriseservices.Globals.ControllerAPIName,
+                        Enterpriseservices.Globals.ControllerAPINumber,
+                        "PROFILEPICTUREUPDATE", 1, "UpdateUserprofile", $"Updated ID: {id}"
+                    );
+                }
+
+                return TypedResults.Accepted($"Updated UserID Picture: {id}, {input.profileurl}");
+            })
+            .WithName("UpdatePicture")
+            .WithOpenApi();
     }
 }
-/*
-app.MapPost("/api/UserPictures", async (HttpRequest request) =>
-{
-    var file = request.Form.Files.FirstOrDefault();
-    if (file == null || file.Length == 0)
-        return Results.BadRequest("No file uploaded.");
 
-    var fileName = Path.GetFileName(file.FileName);
-    var savePath = Path.Combine("c:\\home\\wwwroot\\profiles", fileName);
-
-    Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
-
-    using (var stream = new FileStream(savePath, FileMode.Create))
-    {
-        await file.CopyToAsync(stream);
-    }
-
-    return Results.Ok(new { fullPath = savePath });
-})
-.WithName("UploadUserPicture")
-.WithOpenApi();*/
-}}
