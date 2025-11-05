@@ -11,12 +11,20 @@ using dirtbike.api.Models;
 
 namespace somecontrollers.Controllers
 {
+
+   public static class FileGlobals
+    {
+        public const string GlobalProfilePath = "/greenvillesoftware/547bikes.info/www/profiles";
+        public const string ReturnPathUrl = "https://ww2.547bikes.info/profiles";
+    }
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class FileController : ControllerBase
     {
         private readonly ILogger<FileController> _logger;
-        private readonly string _localPath = "/home/wwwroot/profiles";
+        private readonly string _localPath = "/greenvillesoftware/547bikes.info/www/profiles";
 
         public FileController(ILogger<FileController> logger)
         {
@@ -36,7 +44,7 @@ namespace somecontrollers.Controllers
 
             Directory.CreateDirectory(_localPath);
             var fileName = Path.GetFileName(file.FileName);
-            var savePath = Path.Combine(_localPath, fileName);
+        	var savePath = Path.Combine(FileGlobals.GlobalProfilePath, fileName);
 
             using (var stream = new FileStream(savePath, FileMode.Create))
             {
@@ -56,7 +64,7 @@ namespace somecontrollers.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly ILogger<ProfileController> _logger;
-        private readonly string _localPath = "/home/wwwroot/profiles";
+        private readonly string _localPath = "/greenvillesoftware/547bikes.info/www/profiles";
 
         public ProfileController(ILogger<ProfileController> logger)
         {
