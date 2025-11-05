@@ -1,7 +1,9 @@
 using Enterprise.Controllers;
 using System.Text.Json;
+using ParkTools;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Load CORS settings from appsettings.json
 var corsSettings = builder.Configuration.GetSection("Cors");
@@ -27,6 +29,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UseMiddleware<SwaggerAuthMiddleware>();
 
 // Use middleware
 app.UseCors("UnifiedCors");
