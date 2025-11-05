@@ -1,6 +1,12 @@
 using Enterprise.Controllers;
 using System.Text.Json;
 using ParkTools;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+//using Services;
+using System.Text;
+using Microsoft.OpenApi.Models;
+using somecontrollers.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,4 +73,5 @@ app.MapUsergroupsEndpoints();
 app.MapUserhelpEndpoints();
 app.MapBatchEndpoints();
 app.MapBatchtypeEndpoints();
+//app.MapAuthEndpoints();
 app.Run();
