@@ -224,7 +224,7 @@ public static class UserprofileEndpoints
         .WithOpenApi();
     }
 }
-
+/*
 app.MapPost("/api/UserPictures", async (HttpRequest request) =>
 {
     var file = request.Form.Files.FirstOrDefault();
@@ -244,4 +244,5 @@ app.MapPost("/api/UserPictures", async (HttpRequest request) =>
     return Results.Ok(new { fullPath = savePath });
 })
 .WithName("UploadUserPicture")
-.WithOpenApi();
+.WithOpenApi();*/
+}}
