@@ -225,3 +225,23 @@ public static class UserprofileEndpoints
     }
 }
 
+app.MapPost("/api/UserPictures", async (HttpRequest request) =>
+{
+    var file = request.Form.Files.FirstOrDefault();
+    if (file == null || file.Length == 0)
+        return Results.BadRequest("No file uploaded.");
+
+    var fileName = Path.GetFileName(file.FileName);
+    var savePath = Path.Combine("c:\\home\\wwwroot\\profiles", fileName);
+
+    Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
+
+    using (var stream = new FileStream(savePath, FileMode.Create))
+    {
+        await file.CopyToAsync(stream);
+    }
+
+    return Results.Ok(new { fullPath = savePath });
+})
+.WithName("UploadUserPicture")
+.WithOpenApi();
