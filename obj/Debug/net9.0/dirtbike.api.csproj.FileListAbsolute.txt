@@ -1024,3 +1024,4 @@ X:\G547\bikesapi\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 X:\G547\bikesapi\bin\Debug\net9.0\System.ClientModel.dll
 X:\G547\bikesapi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 X:\G547\bikesapi\bin\Debug\net9.0\System.Memory.Data.dll
+X:\G547\bikesapi\bin\Debug\net9.0\SQLDATA\dirtbike.db
