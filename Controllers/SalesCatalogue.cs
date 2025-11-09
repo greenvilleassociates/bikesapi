@@ -75,19 +75,21 @@ public static class SalesCatalogueEndpoints
             {
                 SalesCatalogue[] someSalesCatalogue = context.SalesCatalogues.Where(m => m.SalesCatalogueId == id).ToArray();
                 context.SalesCatalogues.Attach(someSalesCatalogue[0]);
-                		someSalesCatalogue[0].SalesCatalogueId = input.SalesCatalogueId;
-				someSalesCatalogue[0].ParkId = input.ParkId;
-				if (input.ServiceType != null) someSalesCatalogue[0].ServiceType = input.ServiceType;
-				if (input.ServiceName != null) someSalesCatalogue[0].ServiceName = input.ServiceName;
-				if (input.Description != null) someSalesCatalogue[0].Description = input.Description;
-				someSalesCatalogue[0].Price = input.Price;
-				if (input.StartDate != null) someSalesCatalogue[0].StartDate = input.StartDate;
-				if (input.EndDate != null) someSalesCatalogue[0].EndDate = input.EndDate;
-				someSalesCatalogue[0].IsActive = input.IsActive;
-				if (input.SiteId != null) someSalesCatalogue[0].SiteId = input.SiteId;
-				someSalesCatalogue[0].National = input.National;
-				someSalesCatalogue[0].State = input.State;
-				someSalesCatalogue[0].Global = input.Global;
+              //someSalesCatalogue[0].SalesCatalogueId = input.SalesCatalogueId; Cant Update Sales Cat ID
+                someSalesCatalogue[0].ParkId = input.ParkId;
+                if (!string.IsNullOrEmpty(input.ServiceType)) someSalesCatalogue[0].ServiceType = input.ServiceType;
+                if (!string.IsNullOrEmpty(input.ServiceName)) someSalesCatalogue[0].ServiceName = input.ServiceName;
+                if (!string.IsNullOrEmpty(input.Description)) someSalesCatalogue[0].Description = input.Description;
+                someSalesCatalogue[0].Price = input.Price;
+                someSalesCatalogue[0].StartDate = input.StartDate;
+                someSalesCatalogue[0].EndDate = input.EndDate;
+                someSalesCatalogue[0].IsActive = input.IsActive;
+                if (!string.IsNullOrEmpty(input.SiteId)) someSalesCatalogue[0].SiteId = input.SiteId;
+                if (!string.IsNullOrEmpty(input.National)) someSalesCatalogue[0].National = input.National;
+                someSalesCatalogue[0].State = input.State;
+                someSalesCatalogue[0].Global = input.Global;
+                someSalesCatalogue[0].Qtyadults = input.Qtyadults;
+                someSalesCatalogue[0].Qtychildren = input.Qtychildren;
 
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
@@ -133,4 +135,3 @@ public static class SalesCatalogueEndpoints
         .WithOpenApi();
     }
 }
-
