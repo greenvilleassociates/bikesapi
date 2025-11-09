@@ -47,13 +47,13 @@ namespace Enterprise.Controllers
     }
 
     public class FileMenu
-    {
-        public DateOnly Date { get; set; }
-        public string Filename { get; set; }
-        public string FilePath { get; set; }
-        public string SecurityToken { get; set; }
-        public string BucketToken { get; set; }
-        public string BucketFullPath { get; set; }
-        public string AzureBlobConnectionString { get; set; }
-    }
+	{
+    public DateOnly Date { get; set; }
+    public string Filename { get; set; } = string.Empty;
+    public string FilePath { get; set; } = string.Empty;
+    public string SecurityToken { get; set; } = string.Empty;
+    public string BucketToken { get; set; } = string.Empty;
+    public string BucketFullPath { get; set; } = string.Empty;
+    public string AzureBlobConnectionString { get; set; } = string.Empty;
+	}
 }

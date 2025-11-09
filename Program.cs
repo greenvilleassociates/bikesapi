@@ -13,9 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Load CORS settings from appsettings.json
 var corsSettings = builder.Configuration.GetSection("Cors");
-var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
-var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>();
-var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>();
+var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>() ?? Array.Empty<string>();
+var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>() ?? Array.Empty<string>();
+
 
 // Add services
 builder.Services.AddControllers();

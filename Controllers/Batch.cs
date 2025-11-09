@@ -14,7 +14,7 @@ namespace Enterprise.Controllers;
 public static class BatchEndpoints
 {
 
-    public static async void MapBatchEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapBatchEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Batch").WithTags(nameof(Batch));
 
@@ -42,7 +42,7 @@ public static class BatchEndpoints
         .WithOpenApi();
 
         //[HttpPut]
-        group.MapPut("/{id}", (int id, Batch input) =>
+        group.MapPut("/{id}", async (int id, Batch input) =>
         {
             using (var context = new DirtbikeContext())
             {
@@ -55,7 +55,7 @@ public static class BatchEndpoints
             someBatch[0].Batchend = input.Batchend;
             someBatch[0].Qtystart = input.Qtystart;
             someBatch[0].Qtyend = input.Qtyend;
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return TypedResults.Accepted("Updated ID:" + input.Id);
             }
 
@@ -88,7 +88,7 @@ public static class BatchEndpoints
                 Batch[] someBatches = context.Batches.Where(m => m.Id == id).ToArray();
                 context.Batches.Attach(someBatches[0]);
                 context.Batches.Remove(someBatches[0]);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
 
         })

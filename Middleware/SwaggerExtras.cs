@@ -16,7 +16,7 @@ public class SwaggerAuthMiddleware
     {
         if (context.Request.Path.StartsWithSegments("/swagger"))
         {
-            string authHeader = context.Request.Headers["Authorization"];
+            string? authHeader = context.Request.Headers["Authorization"].ToString();
             if (authHeader != null && authHeader.StartsWith("Basic "))
             {
                 var encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();

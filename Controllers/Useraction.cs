@@ -14,7 +14,7 @@ namespace Enterprise.Controllers;
 public static class UseractionEndpoints
 {
 
-    public static async void MapUseractionEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapUseractionEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Useraction").WithTags(nameof(Useraction));
 
@@ -42,14 +42,14 @@ public static class UseractionEndpoints
         .WithOpenApi();
 
         //[HttpPut]
-        group.MapPut("/{id}", (int id, Useraction input) =>
+        group.MapPut("/{id}", async (int id, Useraction input) =>
         {
             using (var context = new DirtbikeContext())
             {
                 Useraction[] someUseraction = context.Useractions.Where(m => m.Id == id).ToArray();
                 context.Useractions.Attach(someUseraction[0]);
                 someUseraction[0].Description = input.Description;
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return TypedResults.Accepted("Updated ID:" + input.Id);
             }
 
@@ -82,7 +82,7 @@ public static class UseractionEndpoints
                 Useraction[] someUseractions = context.Useractions.Where(m => m.Id == id).ToArray();
                 context.Useractions.Attach(someUseractions[0]);
                 context.Useractions.Remove(someUseractions[0]);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
 
         })

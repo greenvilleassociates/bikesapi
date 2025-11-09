@@ -14,8 +14,8 @@ namespace somecontrollers.Controllers
 
    public static class FileGlobals
     {
-        public const string GlobalProfilePath = "c:/home/site/wwwroot/profiles";
-        public const string ReturnPathUrl = "https://home.547bikes.info/profiles";
+        public const string GlobalProfilePath = "./userprofiles";
+        public const string ReturnPathUrl = "https://home.547bikes.info/userprofiles";
     }
 
 
@@ -24,7 +24,7 @@ namespace somecontrollers.Controllers
     public class FileController : ControllerBase
     {
         private readonly ILogger<FileController> _logger;
-        private readonly string _localPath = "c:/home/site/wwwroot/profiles";
+        private readonly string _localPath = "./userprofiles";
 
         public FileController(ILogger<FileController> logger)
         {
@@ -64,7 +64,7 @@ namespace somecontrollers.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly ILogger<ProfileController> _logger;
-        private readonly string _localPath = "c:/home/site/wwwroot/profiles";
+        private readonly string _localPath = "./userprofiles";
 
         public ProfileController(ILogger<ProfileController> logger)
         {
