@@ -25,7 +25,7 @@ public partial class SalesCatalogue
 
     public string? SiteId { get; set; }
 
-    public string? National { get; set; }
+    public int? National { get; set; }
 
     public int? State { get; set; }
 

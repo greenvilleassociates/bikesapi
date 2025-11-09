@@ -85,7 +85,7 @@ public static class SalesCatalogueEndpoints
                 someSalesCatalogue[0].EndDate = input.EndDate;
                 someSalesCatalogue[0].IsActive = input.IsActive;
                 if (!string.IsNullOrEmpty(input.SiteId)) someSalesCatalogue[0].SiteId = input.SiteId;
-                if (!string.IsNullOrEmpty(input.National)) someSalesCatalogue[0].National = input.National;
+                someSalesCatalogue[0].National = input.National;
                 someSalesCatalogue[0].State = input.State;
                 someSalesCatalogue[0].Global = input.Global;
                 someSalesCatalogue[0].Qtyadults = input.Qtyadults;
