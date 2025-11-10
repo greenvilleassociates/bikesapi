@@ -477,6 +477,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.IsActive).HasDefaultValue(1);
             entity.Property(e => e.National).HasColumnType("INT");
             entity.Property(e => e.ParkId).HasColumnName("ParkID");
+            entity.Property(e => e.Productclass).HasColumnName("productclass");
             entity.Property(e => e.Qtyadults)
                 .HasColumnType("INT")
                 .HasColumnName("qtyadults");
