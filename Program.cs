@@ -1,15 +1,17 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Services;
-using System.Text;
 using Azure;
 using Azure.AI.FormRecognizer.DocumentAnalysis;
-using Microsoft.OpenApi.Models;
+using Azure.Messaging.ServiceBus;
 using Enterprise.Controllers;
-using System.Text.Json;
 using Enterpriseservices;
-using ParkTools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using ParkTools;
+using Services;
+using System.Text;
+using System.Text.Json;
+using Azure.Messaging.ServiceBus;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +42,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ServiceBusService>();
+
+var connectionString = builder.Configuration["ServiceBus:ConnectionString"];
+var queueName = builder.Configuration["ServiceBus:QueueName"];
+
+builder.Services.AddSingleton(new ServiceBusClient(connectionString));
+builder.Services.AddSingleton(sp =>
+{
+    var client = sp.GetRequiredService<ServiceBusClient>();
+    return client.CreateSender(queueName);
+});
+
 // Register CORS policy
 builder.Services.AddCors(options =>
 {
