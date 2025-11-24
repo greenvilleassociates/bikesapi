@@ -7,6 +7,7 @@ using Azure.AI.FormRecognizer.DocumentAnalysis;
 using Microsoft.OpenApi.Models;
 using Enterprise.Controllers;
 using System.Text.Json;
+using Enterpriseservices;
 using ParkTools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -39,7 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<ServiceBusService>();
 // Register CORS policy
 builder.Services.AddCors(options =>
 {
@@ -93,4 +94,17 @@ app.MapUserhelpEndpoints();
 app.MapBatchEndpoints();
 app.MapBatchtypeEndpoints();
 app.MapAuthEndpoints();
+
+//THIS ROUTINE RUNS A PASSWORD HASHER AGAINST THE CURRENT USER TABLE.
+//IT WILL REBUILD THE PASSWORDS ALSO USING A RANDOM HASHER USING BCRYPT
+//THE SAME PASSWORD WILL GENERATE A UNIQUE STRING EVERY TIME.
+//AUTH WILL FAIL WITHOUT THE BCRYPT SO EVEN HAVING THE PLAIN PASSWORD IS NO HELP.
+//COMMENTED OUT AS IT SHOULD ONLY BE RUN WITH ADMINISTRATOR PERMISSION.
+//WE DO NEED TO CONSIDER WHETHER THE /API/USER GET NEEDS TO BE PRESENT AND OR PERMISSIONS ON USERMANAGER.
+
+//var myPasswords = new MyPasswords();
+//await MyPasswords.HashAllUserPasswordsAsync();
+
 app.Run();
+
+

@@ -420,6 +420,156 @@
         }
       }
     },
+    "/api/Auth/forgotPasswordLocal": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "forgotPasswordLocal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/forgotPassword": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "forgotPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/resetPasswordProfile": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPasswordProfile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequestProfile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/resetPasswordLocal": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPasswordLocal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/resetPassword": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "resetPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Batch": {
       "get": {
         "tags": [
@@ -6568,6 +6718,16 @@
         },
         "additionalProperties": false
       },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Learnlog": {
         "type": "object",
         "properties": {
@@ -7104,6 +7264,34 @@
         },
         "additionalProperties": false
       },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "resetToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetPasswordRequestProfile": {
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SalesCatalogue": {
         "type": "object",
         "properties": {
@@ -7433,6 +7621,7 @@
           },
           "resettokenexpiration": {
             "type": "string",
+            "format": "date-time",
             "nullable": true
           },
           "userid": {
