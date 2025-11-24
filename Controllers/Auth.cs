@@ -157,7 +157,8 @@ public static class Auth
                 Jid = null,
                 Companyid = null,
                 Resettoken = null,
-                Resettokenexpiration = null
+                Resettokenexpiration = null,
+                Activepictureurl = request.Activepictureurl
             };
 
             users.Add(newUser);
@@ -216,7 +217,8 @@ public static class Auth
                     Jid = null,
                     Companyid = null,
                     Resettoken = null,
-                    Resettokenexpiration = null
+                    Resettokenexpiration = null,
+                    Activepictureurl = request.Activepictureurl
                 };
 
                 context.Users.Add(newUser);
@@ -473,7 +475,7 @@ public static class Auth
 }
 
 public class LoginRequest { public string Username { get; set; } public string PlainPassword { get; set; } }
-public class SignupRequest { public string Firstname { get; set; } public string Lastname { get; set; } public string Username { get; set; } public string Email { get; set; } public string PlainPassword { get; set; } public string ActiveProfileUrl { get; set; } }
+public class SignupRequest { public string Firstname { get; set; } public string Lastname { get; set; } public string Username { get; set; } public string Email { get; set; } public string PlainPassword { get; set; } public string Activepictureurl { get; set; } }
 public class ForgotPasswordRequest { public string Email { get; set; } }
 public class ResetPasswordRequest { public string ResetToken { get; set; } public string NewPassword { get; set; } }
 public class ResetPasswordRequestProfile { public string CurrentPassword { get; set; } public string NewPassword { get; set; } }

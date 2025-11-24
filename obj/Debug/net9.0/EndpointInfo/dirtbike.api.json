@@ -7430,7 +7430,7 @@
             "type": "string",
             "nullable": true
           },
-          "activeProfileUrl": {
+          "activepictureurl": {
             "type": "string",
             "nullable": true
           }

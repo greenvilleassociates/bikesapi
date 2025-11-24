@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|c:\\users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\controllers\\auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|solutionrelative:controllers\\auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|c:\\users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|c:\\users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\models\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{482F85A2-6E2F-F7A6-74D7-4E6736FD9D3C}|dirtbike.api.csproj|solutionrelative:models\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,13 +42,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Userprofile.cs",
+              "DocumentMoniker": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Models\\Userprofile.cs",
+              "RelativeDocumentMoniker": "Models\\Userprofile.cs",
+              "ToolTip": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Models\\Userprofile.cs*",
+              "RelativeToolTip": "Models\\Userprofile.cs*",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAUwDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T19:23:51.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Models\\User.cs*",
+              "RelativeToolTip": "Models\\User.cs*",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T19:23:29.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Auth.cs",
               "DocumentMoniker": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Controllers\\Auth.cs",
               "RelativeDocumentMoniker": "Controllers\\Auth.cs",
               "ToolTip": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\Controllers\\Auth.cs",
               "RelativeToolTip": "Controllers\\Auth.cs",
-              "ViewState": "AgIAAFABAAAAAAAAAAAowNsBAAAHAQAAAAAAAA==",
+              "ViewState": "AgIAAMsAAAAAAAAAAAAswNsAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-24T19:20:25.559Z",
               "EditorCaption": ""
