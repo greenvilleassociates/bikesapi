@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/bikesapi/v17/.wsuo
+/.vs/bikesapi/v17/workspaceFileList.bin
+/.vs/dirtbike.api/FileContentIndex/ddccc212-da56-487e-b60c-b37ed1382975.vsidx
+/obj/Debug/net9.0/dirtbike.api.AssemblyInfo.cs
+/obj/Debug/net9.0/dirtbike.api.AssemblyInfoInputs.cache
