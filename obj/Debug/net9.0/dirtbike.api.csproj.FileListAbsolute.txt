@@ -1349,3 +1349,5 @@ C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\obj\Debug\net9.0\sta
 C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\obj\Debug\net9.0\dirtbike.48A9639E.Up2Date
 C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\obj\Debug\net9.0\dirtbike.api.genruntimeconfig.cache
 C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\obj\Debug\net9.0\ref\dirtbike.api.dll
+C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\bin\Debug\net9.0\SQLDATA\dirtbike.db
+C:\Users\stritzj\source\repos\greenvilleassociates\bikesapi\bin\Debug\net9.0\SQLDATA\Publish.txt
