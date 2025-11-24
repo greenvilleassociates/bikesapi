@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "X:\\G547\\bikesapi\\dirtbike.api.csproj": {}
+    "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\dirtbike.api.csproj": {}
   },
   "projects": {
-    "X:\\G547\\bikesapi\\dirtbike.api.csproj": {
+    "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\dirtbike.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "X:\\G547\\bikesapi\\dirtbike.api.csproj",
+        "projectUniqueName": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\dirtbike.api.csproj",
         "projectName": "dirtbike.api",
-        "projectPath": "X:\\G547\\bikesapi\\dirtbike.api.csproj",
+        "projectPath": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\dirtbike.api.csproj",
         "packagesPath": "C:\\Users\\stritzj\\.nuget\\packages\\",
-        "outputPath": "X:\\G547\\bikesapi\\obj\\",
+        "outputPath": "C:\\Users\\stritzj\\source\\repos\\greenvilleassociates\\bikesapi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\stritzj\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\stritzj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,12 +44,20 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Azure.AI.FormRecognizer": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Azure.AI.OpenAI": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Azure.Messaging.ServiceBus": {
               "target": "Package",
               "version": "[7.20.1, )"
@@ -54,7 +68,7 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -78,7 +92,7 @@
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
-              "version": "[8.14.0, )"
+              "version": "[8.15.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -91,6 +105,10 @@
             "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
               "version": "[9.0.6, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.15.0, )"
             },
             "System.Security.Cryptography.Algorithms": {
               "target": "Package",
@@ -140,7 +158,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\stritzj\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

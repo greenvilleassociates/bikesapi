@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +11,11 @@ using NuGet.Common;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-namespace somecontrollers.Controllers;
 using Services;
+using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
+namespace Enterprise.Controllers;
+//using Services;
 
 
 public enum Roles
@@ -227,7 +229,8 @@ public static class Auth
         })
         .WithName("signupUser")
         .WithOpenApi();
-
+    }
+/*
         //  Forgot Password Route
         group.MapPost("/forgotPasswordLocal", async (ForgotPasswordRequest request, ServiceBusService serviceBusService, IConfiguration config) =>
         {
@@ -254,7 +257,7 @@ public static class Auth
                 body = $"Click the link to reset your password: {resetLink}"
             };
 
-            await serviceBusService.SendMessageAsync(JsonConvert.SerializeObject(message));
+            //await serviceBusService.SendMessageAsync(JsonConvert.SerializeObject(message));
 
             return Results.Ok(new { message = "Reset link sent to your email (JSON)." });
         })
@@ -287,7 +290,7 @@ public static class Auth
                     body = $"Click the link to reset your password: {resetLink}"
                 };
 
-                await serviceBusService.SendMessageAsync(JsonConvert.SerializeObject(message));
+                //await serviceBusService.SendMessageAsync(JsonConvert.SerializeObject(message));
 
                 return Results.Ok(new { message = "Reset link sent to your email (DB)." });
             }
@@ -412,7 +415,7 @@ public static class Auth
         .WithOpenApi();
 
     }
-
+*/
 
     // File Handling Methods
     private static async Task<List<User>> LoadUsersFromJson()
@@ -477,7 +480,7 @@ public class SignupRequest { public string Firstname { get; set; } public string
 public class ForgotPasswordRequest { public string Email { get; set; } }
 public class ResetPasswordRequest { public string ResetToken { get; set; } public string NewPassword { get; set; } }
 public class ResetPasswordRequestProfile { public string CurrentPassword { get; set; } public string NewPassword { get; set; } }
-*/
+
 
 
 

@@ -217,6 +217,7 @@ public static class UserEndpoints
 })
 .WithName("QuickAddUser")
 .WithOpenApi();
+
     
     
     

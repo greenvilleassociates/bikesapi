@@ -18,4 +18,6 @@ public partial class Apilog
     public string? Parameterlist { get; set; }
 
     public string? Apiresult { get; set; }
+
+    public string? Description { get; set; }
 }

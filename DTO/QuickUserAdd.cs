@@ -1,28 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace dirtbike.api.DTOs
 {
     public class QuickUserAdd
     {
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Fullname { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        public string Activeprofileurl { get; set; }
-
-        [Required]
-        public string Role { get; set; }
-
-        [Required]  // ðŸ‘ˆ This makes Swagger show it as required
-        public string Plainpassword { get; set; }
-
+        public required string Username { get; set; }
+        public required string Fullname { get; set; }
+        public required string Email { get; set; }
+        public required string Activeprofileurl { get; set; }
+        public required string Role { get; set; }
+        public required string Plainpassword { get; set;}
 
         public Models.User ToUser()
         {
@@ -32,14 +17,13 @@ namespace dirtbike.api.DTOs
                 Fullname = this.Fullname,
                 Email = this.Email,
                 Activeprofileurl = this.Activeprofileurl,
-                Activepictureurl = this.Activeprofileurl, // âœ… required non-null
+                Activepictureurl = this.Activeprofileurl, // ✅ required non-null
                 Role = this.Role,
                 Plainpassword = this.Plainpassword
-                // Id â†’ auto-increment
-                // Userid â†’ trigger assigns
+                // Id → auto-increment
+                // Userid → trigger assigns
             };
         }
     }
 }
-
 
