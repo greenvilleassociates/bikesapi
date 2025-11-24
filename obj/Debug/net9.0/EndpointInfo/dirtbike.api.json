@@ -7429,6 +7429,10 @@
           "plainPassword": {
             "type": "string",
             "nullable": true
+          },
+          "activeProfileUrl": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
