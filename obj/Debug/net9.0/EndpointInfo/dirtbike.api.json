@@ -5416,10 +5416,10 @@
         "tags": [
           "Userprofile"
         ],
-        "operationId": "GetUserprofileByUserId",
+        "operationId": "GetUserprofileByUserIdAsString",
         "parameters": [
           {
-            "name": "Userid",
+            "name": "Useridasstring",
             "in": "query",
             "required": true,
             "schema": {
@@ -5444,15 +5444,130 @@
         }
       }
     },
-    "/api/Userprofile/profile/{id}": {
+    "/api/Userprofile/userid/{Userid}": {
+      "get": {
+        "tags": [
+          "Userprofile"
+        ],
+        "operationId": "GetUserprofileByUserId",
+        "parameters": [
+          {
+            "name": "Userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Userprofile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Userprofile/profile/{userid}": {
       "put": {
         "tags": [
           "Userprofile"
         ],
-        "operationId": "UpdateUserprofile",
+        "operationId": "UpdateUserprofileByUserid",
         "parameters": [
           {
-            "name": "id",
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Userprofile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Userprofile/profile/{useridasstring}": {
+      "put": {
+        "tags": [
+          "Userprofile"
+        ],
+        "operationId": "UpdateUserprofileByUseridassting",
+        "parameters": [
+          {
+            "name": "useridasstring",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Userprofile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Void"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Userprofile/{Id}": {
+      "put": {
+        "tags": [
+          "Userprofile"
+        ],
+        "operationId": "UpdateUserprofileById",
+        "parameters": [
+          {
+            "name": "Id",
             "in": "path",
             "required": true,
             "schema": {
