@@ -26,4 +26,13 @@ public partial class Payment
     public string? Useridasstring { get; set; }
 
     public string? Transtype { get; set; }
+
+    public string? Fullname { get; set; }
+
+    public string? ParkName { get; set; }
+
+    public string? State { get; set; }
+
+    public int? ParkId { get; set; }
+
 }
