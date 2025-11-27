@@ -83,6 +83,7 @@ public partial class DirtbikeContext : DbContext
     public virtual DbSet<Userprofile> Userprofiles { get; set; }
 
     public virtual DbSet<Usersession> Usersessions { get; set; }
+    public virtual DbSet<Refund> Refunds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -483,6 +484,18 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
         });
+
+
+         modelBuilder.Entity<Refund>(entity =>
+        {
+            entity.ToTable("Refund");
+
+            entity.Property(e => e.RefundId).HasColumnName("RefundID");
+            entity.Property(e => e.BookingId).HasColumnName("BookingID");
+            entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
+            entity.Property(e => e.Transtype).HasColumnName("transtype");
+        });
+
 
         modelBuilder.Entity<SalesCatalogue>(entity =>
         {
