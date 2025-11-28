@@ -87,13 +87,7 @@ public static class PaymentsEndpoints
                 Payment[] somePayments = context.Payments.Where(m => m.PaymentId == id).ToArray();
                 context.Payments.Attach(somePayments[0]);
                 if (input.CardType != null) somePayments[0].CardType = input.CardType;
-		if (input.Fullname != null) somePayments[0].Fullname = input.Fullname;
-		if (input.ParkName != null) somePayments[0].ParkName = input.ParkName;
-		if (input.State != null) somePayments[0].State = input.State;
-		somePayments[0].ParkId = input.ParkId;
-
-
-		await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.BookingId);
             }

@@ -6503,6 +6503,11 @@
             "format": "double",
             "nullable": true
           },
+          "dateAdded": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
           "isCheckedOut": {
             "type": "integer",
             "format": "int32",
@@ -6540,6 +6545,16 @@
             "type": "string",
             "nullable": true
           },
+          "resStart": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "resEnd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "adults": {
             "type": "integer",
             "format": "int32",
@@ -6553,18 +6568,6 @@
           "tentsites": {
             "type": "integer",
             "format": "int32",
-            "nullable": true
-          },
-          "resStart": {
-            "type": "string",
-            "nullable": true
-          },
-          "resEnd": {
-            "type": "string",
-            "nullable": true
-          },
-          "dateAdded": {
-            "type": "string",
             "nullable": true
           }
         },
@@ -7274,12 +7277,12 @@
           },
           "longitude": {
             "type": "number",
-            "format": "double",
+            "format": "float",
             "nullable": true
           },
           "latitude": {
             "type": "number",
-            "format": "double",
+            "format": "float",
             "nullable": true
           },
           "trailmapurl": {
@@ -7572,23 +7575,6 @@
           "transtype": {
             "type": "string",
             "nullable": true
-          },
-          "fullname": {
-            "type": "string",
-            "nullable": true
-          },
-          "parkName": {
-            "type": "string",
-            "nullable": true
-          },
-          "parkId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "state": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -7658,8 +7644,7 @@
           },
           "bookingId": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "paymentMethod": {
             "type": "string",
@@ -7679,8 +7664,7 @@
           },
           "amountPaid": {
             "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "double"
           },
           "paymentDate": {
             "type": "string",

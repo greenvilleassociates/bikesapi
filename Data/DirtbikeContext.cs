@@ -225,8 +225,12 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Parkname).HasColumnName("parkname");
             entity.Property(e => e.Paymentid).HasColumnName("paymentid");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.ResEnd).HasColumnName("resEnd");
-            entity.Property(e => e.ResStart).HasColumnName("resStart");
+            entity.Property(e => e.ResEnd)
+                .HasColumnType("date")
+                .HasColumnName("resEnd");
+            entity.Property(e => e.ResStart)
+                .HasColumnType("date")
+                .HasColumnName("resStart");
             entity.Property(e => e.Tentsites)
                 .HasColumnType("INT")
                 .HasColumnName("tentsites");
@@ -479,24 +483,16 @@ public partial class DirtbikeContext : DbContext
 
             entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
-            entity.Property(e => e.Fullname).HasColumnType("string");
-            entity.Property(e => e.ParkId).HasColumnType("INT");
-            entity.Property(e => e.ParkName).HasColumnType("string");
-            entity.Property(e => e.State).HasColumnType("string");
             entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
         });
 
         modelBuilder.Entity<Refund>(entity =>
         {
-            entity.ToTable("Refund");
+            entity.ToTable("refund");
 
-            entity.Property(e => e.RefundId)
-                .ValueGeneratedNever()
-                .HasColumnName("refundId");
-            entity.Property(e => e.AmountPaid)
-                .HasColumnType("DOUBLE")
-                .HasColumnName("amountPaid");
+            entity.Property(e => e.RefundId).HasColumnName("refundId");
+            entity.Property(e => e.AmountPaid).HasColumnName("amountPaid");
             entity.Property(e => e.BookingId).HasColumnName("bookingId");
             entity.Property(e => e.CardExpDate).HasColumnName("cardExpDate");
             entity.Property(e => e.CardLast4).HasColumnName("cardLast4");

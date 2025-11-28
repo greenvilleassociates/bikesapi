@@ -7,7 +7,7 @@ public partial class Refund
 {
     public int RefundId { get; set; }
 
-    public int? BookingId { get; set; }
+    public int BookingId { get; set; }
 
     public string? PaymentMethod { get; set; }
 
@@ -17,7 +17,7 @@ public partial class Refund
 
     public string? CardExpDate { get; set; }
 
-    public double? AmountPaid { get; set; }
+    public double AmountPaid { get; set; }
 
     public string? PaymentDate { get; set; }
 
