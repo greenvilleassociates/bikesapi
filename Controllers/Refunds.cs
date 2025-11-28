@@ -73,7 +73,7 @@ public static class RefundEndpoints
                 return context.Refunds.Where(m => m.TransactionId == Refundid).ToList();
             }
         })
-        .WithName("GetTransactionByTransactionId")
+        .WithName("GetRefundByRedundId")
         .WithOpenApi();
     
     
