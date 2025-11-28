@@ -23,7 +23,7 @@ public partial class Cart
 
     public double? TotalPrice { get; set; }
 
-    public DateOnly? DateAdded { get; set; }
+    public string? DateAdded { get; set; }
 
     public int? IsCheckedOut { get; set; }
 
@@ -41,9 +41,9 @@ public partial class Cart
 
     public string? Parkname { get; set; }
 
-    public DateOnly? ResStart { get; set; }
+    public string? ResStart { get; set; }
 
-    public DateOnly? ResEnd { get; set; }
+    public string? ResEnd { get; set; }
 
     public int? Adults { get; set; }
 
