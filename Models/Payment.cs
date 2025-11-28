@@ -31,8 +31,7 @@ public partial class Payment
 
     public string? ParkName { get; set; }
 
-    public string? State { get; set; }
-
     public int? ParkId { get; set; }
 
+    public string? State { get; set; }
 }

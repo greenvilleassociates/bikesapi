@@ -52,6 +52,8 @@ public partial class DirtbikeContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
+    public virtual DbSet<Refund> Refunds { get; set; }
+
     public virtual DbSet<SalesCatalogue> SalesCatalogues { get; set; }
 
     public virtual DbSet<SalesSession> SalesSessions { get; set; }
@@ -83,7 +85,6 @@ public partial class DirtbikeContext : DbContext
     public virtual DbSet<Userprofile> Userprofiles { get; set; }
 
     public virtual DbSet<Usersession> Usersessions { get; set; }
-    public virtual DbSet<Refund> Refunds { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -224,12 +225,8 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Parkname).HasColumnName("parkname");
             entity.Property(e => e.Paymentid).HasColumnName("paymentid");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.ResEnd)
-                .HasColumnType("date")
-                .HasColumnName("resEnd");
-            entity.Property(e => e.ResStart)
-                .HasColumnType("date")
-                .HasColumnName("resStart");
+            entity.Property(e => e.ResEnd).HasColumnName("resEnd");
+            entity.Property(e => e.ResStart).HasColumnName("resStart");
             entity.Property(e => e.Tentsites)
                 .HasColumnType("INT")
                 .HasColumnName("tentsites");
@@ -302,6 +299,7 @@ public partial class DirtbikeContext : DbContext
                 .HasColumnType("float")
                 .HasColumnName("statetaxtotal");
             entity.Property(e => e.Subtotal).HasColumnName("subtotal");
+            entity.Property(e => e.Userid).HasColumnType("INT");
             entity.Property(e => e.Ustaxpercent)
                 .HasColumnType("float")
                 .HasColumnName("ustaxpercent");
@@ -481,21 +479,38 @@ public partial class DirtbikeContext : DbContext
 
             entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
+            entity.Property(e => e.Fullname).HasColumnType("string");
+            entity.Property(e => e.ParkId).HasColumnType("INT");
+            entity.Property(e => e.ParkName).HasColumnType("string");
+            entity.Property(e => e.State).HasColumnType("string");
             entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
         });
 
-
-         modelBuilder.Entity<Refund>(entity =>
+        modelBuilder.Entity<Refund>(entity =>
         {
             entity.ToTable("Refund");
 
-            entity.Property(e => e.RefundId).HasColumnName("RefundID");
-            entity.Property(e => e.BookingId).HasColumnName("BookingID");
-            entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
+            entity.Property(e => e.RefundId)
+                .ValueGeneratedNever()
+                .HasColumnName("refundId");
+            entity.Property(e => e.AmountPaid)
+                .HasColumnType("DOUBLE")
+                .HasColumnName("amountPaid");
+            entity.Property(e => e.BookingId).HasColumnName("bookingId");
+            entity.Property(e => e.CardExpDate).HasColumnName("cardExpDate");
+            entity.Property(e => e.CardLast4).HasColumnName("cardLast4");
+            entity.Property(e => e.CardType).HasColumnName("cardType");
+            entity.Property(e => e.Fullname).HasColumnName("fullname");
+            entity.Property(e => e.ParkId).HasColumnName("parkId");
+            entity.Property(e => e.ParkName).HasColumnName("parkName");
+            entity.Property(e => e.PaymentDate).HasColumnName("paymentDate");
+            entity.Property(e => e.PaymentMethod).HasColumnName("paymentMethod");
+            entity.Property(e => e.State).HasColumnName("state");
+            entity.Property(e => e.TransactionId).HasColumnName("transactionId");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
+            entity.Property(e => e.Useridasstring).HasColumnName("useridasstring");
         });
-
 
         modelBuilder.Entity<SalesCatalogue>(entity =>
         {
@@ -646,7 +661,9 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Plainpassword).HasColumnName("plainpassword");
             entity.Property(e => e.Profileurl).HasColumnName("profileurl");
             entity.Property(e => e.Resettoken).HasColumnName("resettoken");
-            entity.Property(e => e.Resettokenexpiration).HasColumnName("resettokenexpiration");
+            entity.Property(e => e.Resettokenexpiration)
+                .HasColumnType("datetime")
+                .HasColumnName("resettokenexpiration");
             entity.Property(e => e.Role).HasColumnName("role");
             entity.Property(e => e.Twofactorkeyemaildestination).HasColumnName("twofactorkeyemaildestination");
             entity.Property(e => e.Twofactorprovider).HasColumnName("twofactorprovider");

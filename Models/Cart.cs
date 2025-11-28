@@ -23,8 +23,6 @@ public partial class Cart
 
     public double? TotalPrice { get; set; }
 
-    public string? DateAdded { get; set; }
-
     public int? IsCheckedOut { get; set; }
 
     public string? Paymentid { get; set; }
@@ -41,13 +39,15 @@ public partial class Cart
 
     public string? Parkname { get; set; }
 
-    public string? ResStart { get; set; }
-
-    public string? ResEnd { get; set; }
-
     public int? Adults { get; set; }
 
     public int? Children { get; set; }
 
     public int? Tentsites { get; set; }
+
+    public string? ResStart { get; set; }
+
+    public string? ResEnd { get; set; }
+
+    public string? DateAdded { get; set; }
 }
