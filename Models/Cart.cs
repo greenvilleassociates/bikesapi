@@ -41,9 +41,9 @@ public partial class Cart
 
     public string? Parkname { get; set; }
 
-    public DateTime? ResStart { get; set; }
+    public DateOnly? ResStart { get; set; }
 
-    public DateTime? ResEnd { get; set; }
+    public DateOnly? ResEnd { get; set; }
 
     public int? Adults { get; set; }
 
