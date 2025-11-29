@@ -24,6 +24,8 @@ public partial class Refund
 
     public string? TransactionId { get; set; }
 
+    public string? RefundTransactionId {get; set;}
+
     public string? Useridasstring { get; set; }
 
     public string? Transtype { get; set; }
