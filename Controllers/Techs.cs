@@ -51,18 +51,13 @@ public static class NoctechsEndpoints
         .WithName("GetNoctechsById")
         .WithOpenApi();
 
-group.MapPut("/{id}", async (int id, Noctech input) =>
-{
-    using (var context = new DirtbikeContext())
-    {
-        Noctech[] someNoctechs = context.Noctechs.Where(m => m.Id == id).ToArray();
+group.MapPut("/{id}", async (int id, Noctech input) => 
 
-        if (someNoctechs.Length == 0)
-            return TypedResults.NotFound("No NOC tech found with ID: " + id);
-
-        context.Noctechs.Attach(someNoctechs[0]);
-
-        // ✅ Update all fields if provided
+{ 
+    using (var context = new DirtbikeContext()) 
+    { 
+        Noctech[] someNoctechs = context.Noctechs.Where(m => m.Id == id).ToArray(); 
+        context.Noctechs.Attach(someNoctechs[0]); 
         if (input.Userid != null) someNoctechs[0].Userid = input.Userid;
         if (input.Employeeid != null) someNoctechs[0].Employeeid = input.Employeeid;
         if (input.Email != null) someNoctechs[0].Email = input.Email;
@@ -72,24 +67,17 @@ group.MapPut("/{id}", async (int id, Noctech input) =>
         if (input.Techaddress2 != null) someNoctechs[0].Techaddress2 = input.Techaddress2;
         if (input.Techcity != null) someNoctechs[0].Techcity = input.Techcity;
         if (input.Techstate != null) someNoctechs[0].Techstate = input.Techstate;
-        if (input.Techzip != null) someNoctechs[0].Techzip = input.Techzip;
+        if (input.Techzip != null) someNoctechs[0].Techzip = input.Techzip; 
+        await context.SaveChangesAsync(); 
+        Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test"); 
+        return TypedResults.Accepted("Updated ID:" + input.Id); 
+        } 
+        }) 
+        .WithName("UpdateNoctechs") 
+        .WithOpenApi();
 
-        await context.SaveChangesAsync();
 
-        Enterpriseservices.ApiLogger.logapi(
-            Enterpriseservices.Globals.ControllerAPIName,
-            Enterpriseservices.Globals.ControllerAPINumber,
-            "PUTWITHID",
-            1,
-            "Updated NOC Tech",
-            "ID: " + id
-        );
 
-        return TypedResults.Accepted("Updated ID: " + id);
-    }
-})
-.WithName("UpdateNoctechs")
-.WithOpenApi();
 
         group.MapPost("/", async (Noctech input) =>
         {
