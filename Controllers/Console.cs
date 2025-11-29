@@ -40,6 +40,7 @@ public class SystemConsoleController : ControllerBase
             case 5: return RunFullPipeline(); //Runs all the I/O Functions and Imports all the Required Data.
             case 6: return RunPipeline_1_2_4(); //Runs all the Gashub I/O Functions Only.
             case 7: return GetAvgs(parkId);
+            case 8: return GetAllParkAvgs();
 
             default:
                 return BadRequest(new { Error = "Invalid option. Use 1 for hubs, 2 for history, 3 for branches, 4 for file list, 5 for full pipeline, 6 for 1-2-4, 7 for 1-2-5." });
@@ -93,10 +94,20 @@ public class SystemConsoleController : ControllerBase
     {
         
         var service = new ParkRatingService(_context);  // use the injected DbContext
-        service.UpdateAverageParkRating(parkId);
+        string result = service.UpdateAverageParkRating(parkId);
 
-        return Ok(new { Message = $"Average rating updated for Park {parkId}" });
+        return Ok(new { Message = $"Average rating updated for Park {parkId}," + result });
     }
+
+    private IActionResult GetAllParkAvgs()
+    {
+
+        var service = new ParkRatingService(_context);  // use the injected DbContext
+        string result = service.UpdateAverageRatingsForFirst500();
+
+        return Ok(new { Message = $"Average ratings updated for First 500Parks" + result });
+    }
+
 }
 
 

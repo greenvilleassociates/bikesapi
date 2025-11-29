@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9477ad8a341aa3e15ad2ad7fd1fc3880c2a0d77")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+583260f4cab214a6c1a8eac3d497a4da9241b9dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
