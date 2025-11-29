@@ -5207,6 +5207,27 @@
     ]
   },
   {
+    "ContainingType": "EnterpriseControllers.SystemConsoleController",
+    "Method": "GetSystemInfo",
+    "RelativePath": "SystemConsole/{option}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "option",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "parkId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "somecontrollers.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

@@ -4618,6 +4618,37 @@
         }
       }
     },
+    "/SystemConsole/{option}": {
+      "get": {
+        "tags": [
+          "SystemConsole"
+        ],
+        "parameters": [
+          {
+            "name": "option",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "parkId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User": {
       "get": {
         "tags": [
