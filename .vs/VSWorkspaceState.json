@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers",
+    "\\Data",
+    "\\Models",
+    "\\ServicesBusiness"
   ],
-  "SelectedNode": "\\dirtbike.api.csproj",
   "PreviewInSolutionExplorer": false
 }

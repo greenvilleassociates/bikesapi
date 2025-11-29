@@ -7429,6 +7429,11 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          },
+          "averageRating": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false
