@@ -26,7 +26,7 @@ public class SystemConsoleController : ControllerBase
     private DirtbikeContext _context;
 
     [HttpGet("{option}")]
-    public IActionResult GetSystemInfo(int option, int parkId)
+    public IActionResult GetSystemInfo(int option, int someint)
     {
         Enterpriseservices.Globals.ControllerAPIName = "ActionsController";
         Enterpriseservices.Globals.ControllerAPINumber = "001";
@@ -38,8 +38,8 @@ public class SystemConsoleController : ControllerBase
             case 3: return ProcessPrices(); //Returns Sample Hub Data - Demo Only
             case 4: return GetFileList();   //Returns the Exact list of Data Files in the /DATA Directory
             case 5: return RunFullPipeline(); //Runs all the I/O Functions and Imports all the Required Data.
-            case 6: return RunPipeline_1_2_4(); //Runs all the Gashub I/O Functions Only.
-            case 7: return GetAvgs(parkId);
+            case 6: return RemoveZerocarts(someint); //Removes the ZeroCarts for a Userid which is an integer.
+            case 7: return GetAvgs(someint);
             case 8: return GetAllParkAvgs();
 
             default:
@@ -79,25 +79,33 @@ public class SystemConsoleController : ControllerBase
     }
 
     // -------------------------------
-    // OPTION #6: Functions 1,2,4
+    // OPTION #6: Allows for the Zeroing of Carts for a Specific User
     // -------------------------------
-    private IActionResult RunPipeline_1_2_4()
+    private IActionResult RemoveZerocarts(int someint)
     {
-        return Ok(1);
+        string somestring = someint.ToString();
+        var service = new ZeroCartService(_context);  // use the injected DbContext
+        string result = service.ZeroCartUpdate(somestring);
+
+        return Ok(new { Message = $"ZeroCarts removed for User {someint}," + result });
 
     }
 
     // -------------------------------
-    // OPTION #7: Functions 1,2,5
+    // OPTION #7: Updates the Avg Park Rating for a single park
     // -------------------------------
-    private IActionResult GetAvgs(int parkId)
+    private IActionResult GetAvgs(int someint)
     {
-        
+        int parkId = someint;
         var service = new ParkRatingService(_context);  // use the injected DbContext
         string result = service.UpdateAverageParkRating(parkId);
 
         return Ok(new { Message = $"Average rating updated for Park {parkId}," + result });
     }
+
+// -------------------------------
+    // OPTION #8: Updates the Avg Park Rating for the first 500 parks (Bigger than current DB)
+    // -------------------------------
 
     private IActionResult GetAllParkAvgs()
     {
