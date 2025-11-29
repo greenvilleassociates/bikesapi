@@ -68,6 +68,7 @@ group.MapPut("/{id}", async (int id, Noctech input) =>
         if (input.Techcity != null) someNoctechs[0].Techcity = input.Techcity;
         if (input.Techstate != null) someNoctechs[0].Techstate = input.Techstate;
         if (input.Techzip != null) someNoctechs[0].Techzip = input.Techzip; 
+        if (input.Fullname != null) someNoctechs[0].Fullname = input.Fullname; 
         await context.SaveChangesAsync(); 
         Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test"); 
         return TypedResults.Accepted("Updated ID:" + input.Id); 
