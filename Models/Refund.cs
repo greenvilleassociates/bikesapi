@@ -18,6 +18,7 @@ public partial class Refund
     public string? CardExpDate { get; set; }
 
     public double AmountPaid { get; set; }
+    public double AmountRefunded { get; set; }
 
     public string? PaymentDate { get; set; }
 
