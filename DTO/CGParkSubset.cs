@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using dirtbike.api.Models;
+
+namespace dirtbike.api.DTOs
+{
+    public class CGPARKS
+    {
+        public required string Id { get; set; }              // UUID exposed to UI
+        public required string ParkName { get; set; }        // Maps from Park.Name
+        public required string Location { get; set; }        // Maps from Park.Address
+        public required string Description { get; set; }     // Maps from Park.Description
+        public required double AdultPrice { get; set; }      // Maps from Park.AdultPrice
+        public required double ChildPrice { get; set; }      // Maps from Park.ChildPrice
+        public required string ImageUrl { get; set; }        // Maps from Park.Pic1url
+        public required List<ParkReviewDto> Reviews { get; set; } = new List<ParkReviewDto>();
+
+        /// <summary>
+        /// Factory method to map from Park + Reviews → CGPARKS DTO
+        /// </summary>
+        public static CGPARKS FromPark(Park park, IEnumerable<ParkReview> reviews)
+        {
+            return new CGPARKS
+            {
+                Id = park.Id ?? string.Empty,
+                ParkName = park.Name ?? string.Empty,
+                Location = park.Address ?? string.Empty,
+                Description = park.Description ?? string.Empty,
+                AdultPrice = park.AdultPrice ?? 0,
+                ChildPrice = park.ChildPrice ?? 0,
+                ImageUrl = park.Pic1url ?? string.Empty,
+                Reviews = reviews.Select(r => new ParkReviewDto
+                {
+                    Description = r.Description,
+                    Stars = r.Stars,
+                    DatePosted = r.DatePosted,
+                    UserId = r.UserId,
+                    UserIdAsString = r.Useridasstring
+                }).ToList()
+            };
+        }
+    }
+
+    public class ParkReviewDto
+    {
+        public string Description { get; set; } = string.Empty;
+        public int Stars { get; set; }
+        public string DatePosted { get; set; } = string.Empty;
+        public int UserId { get; set; }
+        public string? UserIdAsString { get; set; }
+    }
+}
