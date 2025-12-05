@@ -55,8 +55,11 @@
   </Content>
 </ItemGroup>
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 44318e5d0844ebf558755bcbd36eef4b32f62695
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
