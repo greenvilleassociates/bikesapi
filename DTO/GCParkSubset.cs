@@ -37,7 +37,7 @@ namespace dirtbike.api.DTOs
                         Id = r.Useridasstring ?? string.Empty,
                         DisplayName = r.Displayname ?? string.Empty, // already in review
                         FullName = r.Fullname,                     
-                        DateOfBirth = new DateOnly(2001, 1, 1)       // fixed default
+                        DateOfBirth = new DateOnly(2001, 1, 1).ToDateTime(TimeOnly.MinValue).ToString("o")      // fixed default
                     },
                     Rating = r.Stars,
                     DateWritten = r.DatePosted,
@@ -62,6 +62,6 @@ namespace dirtbike.api.DTOs
         public string Id { get; set; } = string.Empty;          // UserIdAsString
         public string DisplayName { get; set; } = string.Empty; // from ParkReview.Displayname
         public string FullName { get; set; } = string.Empty;    // not available
-        public DateOnly? DateOfBirth { get; set; }              // fixed to 1/1/2001
+        public string DateOfBirth { get; set; } = "2001-01-01T00:00:00.000Z";           // fixed to 1/1/2001
     }
 }
