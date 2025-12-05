@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using dirtbike.api.Models;
 
@@ -54,4 +54,25 @@ namespace dirtbike.api.DTOs
     	public bool? Active { get; set; }  
     // <-- new field
     }
+    */
+/*
+public class ParkReviewDto
+{
+    public AuthorDto Author { get; set; } = new AuthorDto();
+    public int Rating { get; set; }
+    public string DateWritten { get; set; } = string.Empty;
+    public string DateVisited { get; set; } = string.Empty;
+    public string Review { get; set; } = string.Empty;
 }
+
+public class AuthorDto
+{
+    public string Id { get; set; } = string.Empty;          // maps from UserIdAsString or UserId
+    public string DisplayName { get; set; } = string.Empty; // maps from User.DisplayName
+    public string FullName { get; set; } = string.Empty;    // maps from User.FullName
+    public DateTime? DateOfBirth { get; set; }              // maps from User.DateOfBirth
+}
+
+
+
+}*/
