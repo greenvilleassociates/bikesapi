@@ -14,8 +14,8 @@ namespace dirtbike.api.Services
             using (var context = new DirtbikeContext())
             {
                 Enterpriseservices.ApiLogger.logapi(
-                    Enterpriseservices.Globals.ControllerAPIName,
-                    Enterpriseservices.Globals.ControllerAPINumber,
+                    Enterpriseservices.Globals.ControllerAPIName ?? string.Empty,
+                    Enterpriseservices.Globals.ControllerAPINumber ?? string.Empty,
                     "CGGETALLPARKS", 1, "Fetch", "All motocross parks");
 
                 var parks = context.Parks
@@ -24,11 +24,16 @@ namespace dirtbike.api.Services
 
                 var dtoList = parks.Select(p =>
                 {
-                    var reviews = context.ParkReviews
-                        .Where(r => r.ParkId == p.ParkId)
-                        .ToList();
+                    var reviewsWithUsers = (from r in context.ParkReviews
+                                            join u in context.Users on r.UserId equals u.Userid
+                                            where r.ParkId == p.ParkId
+                                            select new ReviewWithUser
+                                            {
+                                                Review = r,
+                                                User = u
+                                            }).ToList();
 
-                    return CGPARKS.FromPark(p, reviews);
+                    return CGPARKS.FromPark(p, reviewsWithUsers);
                 }).ToList();
 
                 return dtoList;
@@ -41,19 +46,24 @@ namespace dirtbike.api.Services
             using (var context = new DirtbikeContext())
             {
                 Enterpriseservices.ApiLogger.logapi(
-                    Enterpriseservices.Globals.ControllerAPIName,
-                    Enterpriseservices.Globals.ControllerAPINumber,
+                    Enterpriseservices.Globals.ControllerAPIName ?? string.Empty,
+                    Enterpriseservices.Globals.ControllerAPINumber ?? string.Empty,
                     "CGGETPARKBYUUID", 1, "Fetch", $"Park {uuid}");
 
                 var park = context.Parks
                     .FirstOrDefault(p => p.Id == uuid && p.Motocross == 1);
                 if (park == null) return null;
 
-                var reviews = context.ParkReviews
-                    .Where(r => r.ParkId == park.ParkId)
-                    .ToList();
+                var reviewsWithUsers = (from r in context.ParkReviews
+                                        join u in context.Users on r.UserId equals u.Userid
+                                        where r.ParkId == park.ParkId
+                                        select new ReviewWithUser
+                                        {
+                                            Review = r,
+                                            User = u
+                                        }).ToList();
 
-                return CGPARKS.FromPark(park, reviews);
+                return CGPARKS.FromPark(park, reviewsWithUsers);
             }
         }
 
@@ -63,8 +73,8 @@ namespace dirtbike.api.Services
             using (var context = new DirtbikeContext())
             {
                 Enterpriseservices.ApiLogger.logapi(
-                    Enterpriseservices.Globals.ControllerAPIName,
-                    Enterpriseservices.Globals.ControllerAPINumber,
+                    Enterpriseservices.Globals.ControllerAPIName ?? string.Empty,
+                    Enterpriseservices.Globals.ControllerAPINumber ?? string.Empty,
                     "CGCREATEPARK", 1, "Create", $"Park {input.Name}");
 
                 input.Motocross = 1; // force motocross flag
@@ -80,8 +90,8 @@ namespace dirtbike.api.Services
             using (var context = new DirtbikeContext())
             {
                 Enterpriseservices.ApiLogger.logapi(
-                    Enterpriseservices.Globals.ControllerAPIName,
-                    Enterpriseservices.Globals.ControllerAPINumber,
+                    Enterpriseservices.Globals.ControllerAPIName ?? string.Empty,
+                    Enterpriseservices.Globals.ControllerAPINumber ?? string.Empty,
                     "CGUPDATEPARK", 1, "Update", $"Park {uuid}");
 
                 var park = context.Parks.FirstOrDefault(p => p.Id == uuid && p.Motocross == 1);
@@ -101,8 +111,8 @@ namespace dirtbike.api.Services
             using (var context = new DirtbikeContext())
             {
                 Enterpriseservices.ApiLogger.logapi(
-                    Enterpriseservices.Globals.ControllerAPIName,
-                    Enterpriseservices.Globals.ControllerAPINumber,
+                    Enterpriseservices.Globals.ControllerAPIName ?? string.Empty,
+                    Enterpriseservices.Globals.ControllerAPINumber ?? string.Empty,
                     "CGDELETEPARK", 1, "Delete", $"Park {uuid}");
 
                 var park = context.Parks.FirstOrDefault(p => p.Id == uuid && p.Motocross == 1);

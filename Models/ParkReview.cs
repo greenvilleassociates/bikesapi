@@ -29,5 +29,7 @@ public partial class ParkReview
 
     public string? Displayname { get; set; }
 
+    public string? Fullname { get; set; }
+
     public bool? Active { get; set; }
 }

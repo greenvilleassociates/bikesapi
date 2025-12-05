@@ -17,9 +17,9 @@ namespace dirtbike.api.DTOs
         public required List<ParkReviewDto> Reviews { get; set; } = new List<ParkReviewDto>();
 
         /// <summary>
-        /// Factory method to map from Park + Reviews(+Users) → CGPARKS DTO
+        /// Factory method to map from Park + Reviews → CGPARKS DTO
         /// </summary>
-        public static CGPARKS FromPark(Park park, IEnumerable<ReviewWithUser> reviewsWithUsers)
+        public static CGPARKS FromPark(Park park, IEnumerable<ParkReview> reviews)
         {
             return new CGPARKS
             {
@@ -30,19 +30,19 @@ namespace dirtbike.api.DTOs
                 AdultPrice = park.AdultPrice ?? 0,
                 ChildPrice = park.ChildPrice ?? 0,
                 ImageUrl = park.Pic1url ?? string.Empty,
-                Reviews = reviewsWithUsers.Select(r => new ParkReviewDto
+                Reviews = reviews.Select(r => new ParkReviewDto
                 {
                     Author = new AuthorDto
                     {
-                        Id = r.User.Uidstring ?? r.Review.Useridasstring ?? string.Empty,
-                        DisplayName = r.User.Displayname ?? string.Empty,
-                        FullName = r.User.Fullname ?? string.Empty,
-                        DateOfBirth = r.User.DateOfBirth
+                        Id = r.Useridasstring ?? string.Empty,
+                        DisplayName = r.Displayname ?? string.Empty, // already in review
+                        FullName = r.Fullname,                     
+                        DateOfBirth = new DateOnly(2001, 1, 1)       // fixed default
                     },
-                    Rating = r.Review.Stars,
-                    DateWritten = r.Review.DatePosted,
-                    DateVisited = r.Review.DateApproved, // adjust if another field better represents "visited"
-                    Review = r.Review.Description
+                    Rating = r.Stars,
+                    DateWritten = r.DatePosted,
+                    DateVisited = r.DateApproved, // adjust if another field better represents "visited"
+                    Review = r.Description
                 }).ToList()
             };
         }
@@ -59,16 +59,9 @@ namespace dirtbike.api.DTOs
 
     public class AuthorDto
     {
-        public string Id { get; set; } = string.Empty;          // UserIdAsString or Uidstring
-        public string DisplayName { get; set; } = string.Empty; // User.Displayname
-        public string FullName { get; set; } = string.Empty;    // User.Fullname
-        public DateOnly? DateOfBirth { get; set; }              // User.DateOfBirth
-    }
-
-    public class ReviewWithUser
-    {
-        public ParkReview Review { get; set; }
-        public User User { get; set; }
+        public string Id { get; set; } = string.Empty;          // UserIdAsString
+        public string DisplayName { get; set; } = string.Empty; // from ParkReview.Displayname
+        public string FullName { get; set; } = string.Empty;    // not available
+        public DateOnly? DateOfBirth { get; set; }              // fixed to 1/1/2001
     }
 }
-
