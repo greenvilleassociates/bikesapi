@@ -26,4 +26,6 @@ public partial class ParkReview
     public int? ReviewManagerId { get; set; }
 
     public string? Useridasstring { get; set; }
+
+    public bool? Active { get; set; }
 }

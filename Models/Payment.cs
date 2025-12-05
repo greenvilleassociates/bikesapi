@@ -30,4 +30,10 @@ public partial class Payment
     public string? RefundTransactionId { get; set; }
 
     public double? AmountRefunded { get; set; }
+
+    public string? Fullname { get; set; }
+
+    public int? Userid { get; set; }
+
+    public string? Useridassting { get; set; }
 }

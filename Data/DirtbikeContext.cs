@@ -281,7 +281,11 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Itemtotals).HasColumnName("itemtotals");
             entity.Property(e => e.Itemvendor).HasColumnName("itemvendor");
             entity.Property(e => e.Memberid).HasColumnName("memberid");
+            entity.Property(e => e.NumDays)
+                .HasColumnType("INT")
+                .HasColumnName("numDays");
             entity.Property(e => e.Parkid).HasColumnName("parkid");
+            entity.Property(e => e.Parkidasstring).HasColumnType("string");
             entity.Property(e => e.Parkname).HasColumnName("parkname");
             entity.Property(e => e.Productid).HasColumnName("productid");
             entity.Property(e => e.Qrcodeurl).HasColumnName("qrcodeurl");
@@ -480,6 +484,9 @@ public partial class DirtbikeContext : DbContext
 
         modelBuilder.Entity<ParkReview>(entity =>
         {
+            entity.Property(e => e.Active)
+                .HasColumnType("Boolean")
+                .HasColumnName("active");
             entity.Property(e => e.DateApproved).HasColumnName("dateApproved");
             entity.Property(e => e.DateDenied).HasColumnName("dateDenied");
             entity.Property(e => e.DatePosted).HasColumnName("datePosted");
@@ -498,8 +505,13 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
             entity.Property(e => e.AmountRefunded).HasColumnType("double");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
+            entity.Property(e => e.Fullname).HasColumnName("fullname");
             entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
+            entity.Property(e => e.Userid)
+                .HasColumnType("INT")
+                .HasColumnName("userid");
+            entity.Property(e => e.Useridassting).HasColumnName("useridassting");
         });
 
         modelBuilder.Entity<Refund>(entity =>
@@ -652,6 +664,10 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Azureid).HasColumnName("azureid");
             entity.Property(e => e.Btn).HasColumnName("BTN");
             entity.Property(e => e.Companyid).HasColumnName("companyid");
+            entity.Property(e => e.DateOfBirth)
+                .HasColumnType("DateOnly")
+                .HasColumnName("dateOfBirth");
+            entity.Property(e => e.Displayname).HasColumnName("displayname");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.Employee).HasColumnName("employee");
             entity.Property(e => e.Employeeid).HasColumnName("employeeid");
