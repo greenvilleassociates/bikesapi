@@ -36,8 +36,8 @@ namespace dirtbike.api.DTOs
                     DatePosted = r.DatePosted,
                     UserId = r.UserId,
                     UserIdAsString = r.Useridasstring,
-                    Displayname = r.Displayname,
-		    Active = r.Active,
+                    DisplayName = r.Displayname,
+		    		Active = r.Active,
                 }).ToList()
             };
         }
@@ -50,7 +50,7 @@ namespace dirtbike.api.DTOs
         public string DatePosted { get; set; } = string.Empty;
         public int UserId { get; set; }
         public string? UserIdAsString { get; set; }
-    	public string? Displayname { get; set; }  
+    	public string? DisplayName { get; set; }  
     	public bool? Active { get; set; }  
     // <-- new field
     }
