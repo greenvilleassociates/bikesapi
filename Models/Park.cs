@@ -93,7 +93,7 @@ public partial class Park
 
     public double? AverageRating { get; set; }
 
-    public Guid? Id { get; set; }
+    public string? Id { get; set; }
 
     public string? Reviews { get; set; }
 
