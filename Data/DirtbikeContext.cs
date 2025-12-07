@@ -666,6 +666,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Activepictureurl).HasColumnName("activepictureurl");
             entity.Property(e => e.Azureid).HasColumnName("azureid");
             entity.Property(e => e.Btn).HasColumnName("BTN");
+            entity.Property(e => e.CartMasterIndex).HasColumnType("INT");
             entity.Property(e => e.Companyid).HasColumnName("companyid");
             entity.Property(e => e.DateOfBirth)
                 .HasColumnType("DateOnly")
@@ -700,6 +701,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Twofactorproviderauthstring).HasColumnName("twofactorproviderauthstring");
             entity.Property(e => e.Twofactorprovidertoken).HasColumnName("twofactorprovidertoken");
             entity.Property(e => e.Uidstring).HasColumnName("uidstring");
+            entity.Property(e => e.UserProfileIndex).HasColumnType("INT");
             entity.Property(e => e.Userid).HasColumnName("userid");
             entity.Property(e => e.Username).HasColumnName("username");
             entity.Property(e => e.Usertwofactorenabled).HasColumnName("usertwofactorenabled");
