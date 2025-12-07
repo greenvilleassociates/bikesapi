@@ -143,22 +143,75 @@ public static class UserEndpoints
 .WithName("UpdateUser")
 .WithOpenApi();
 
-        group.MapPost("/", async (User input) =>
-        {
-            using (var context = new DirtbikeContext())
-            {
-                Random rnd = new Random();
-                int dice = rnd.Next(1000, 10000000);
-                //input.Id = dice;
-                context.Users.Add(input);
-                await context.SaveChangesAsync();
-                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "NEWRECORD", 1, "TEST", "TEST");
-                return TypedResults.Created("Created ID:" + input.Userid);
-            }
+ group.MapPost("/", async (User input) =>
+{
+    using (var context = new DirtbikeContext())
+    {
+        // STEP 1: Add new User record
+        context.Users.Add(input);
+        await context.SaveChangesAsync(); // input.Userid is now populated
 
-        })
-        .WithName("CreateUser")
-        .WithOpenApi();
+        // STEP 2: Insert UserProfile
+        var profile = new Userprofile
+        {
+            Userid = input.Userid,
+            Firstname = input.Firstname,
+            Lastname = input.Lastname,
+            Email = input.Email,
+           };
+        context.Userprofiles.Add(profile);
+        await context.SaveChangesAsync(); // profile.Id populated
+
+        // STEP 3: Insert CartMaster
+        var cartMaster = new CartMaster
+        {
+            UserId = input.Userid,
+            CartsCount = 0,
+            CartsCancelled = 0,
+            CartsActive = 0,
+            CartsActiveList = string.Empty,
+            Loyaltyid = string.Empty,
+            Loyaltyvendor = string.Empty
+        };
+        context.CartMasters.Add(cartMaster);
+        await context.SaveChangesAsync(); // cartMaster.Id populated
+
+        // STEP 4: Fetch the very last User from the database
+        var lastUser = context.Users
+                              .OrderBy(u => u.Userid)
+                              .LastOrDefault();
+
+        if (lastUser != null)
+        {
+            // STEP 5: Generate random UidString
+            var rnd = new Random();
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string prefix = new string(Enumerable.Repeat(letters, 3)
+                .Select(s => s[rnd.Next(s.Length)]).ToArray());
+
+            lastUser.Uidstring = prefix + lastUser.Userid.ToString();
+            lastUser.Displayname = lastUser.Fullname;
+
+            // STEP 6: Update User with indices
+            lastUser.UserProfileIndex = profile.Id;
+            lastUser.CartMasterIndex  = cartMaster.Id;
+            profile.Userid = lastUser.Userid;
+            cartMaster.UserId = lastUser.Userid;
+            context.Users.Update(lastUser);
+            await context.SaveChangesAsync();
+        }
+
+        Enterpriseservices.ApiLogger.logapi(
+            Enterpriseservices.Globals.ControllerAPIName,
+            Enterpriseservices.Globals.ControllerAPINumber,
+            "NEWRECORD", 1, "TEST", "TEST"
+        );
+    }
+})
+.WithName("CreateUser")
+.WithOpenApi();
+
+
 
         group.MapDelete("/{id}", async (int id) =>
         {
@@ -176,8 +229,11 @@ public static class UserEndpoints
         .WithName("DeleteUser")
         .WithOpenApi();
     
+
+        //WE BUILT A NEW CONTROLLER TO A DTO WHICH SHOULD TAKE A BASIC FORM AND BUILD A WORKING PROFILE WITH MINIMAL FIELDS
+
     	group.MapPost("/quickadd", async ([FromBody] QuickUserAdd dto) =>
-{
+        {
     Console.WriteLine($"QuickUserAdd DTO received: Username={dto.Username}, Fullname={dto.Fullname}, Email={dto.Email}, Role={dto.Role}");
 
     string logPath = "/opt/ga/547bikes/logs/quickusers.log";
