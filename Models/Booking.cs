@@ -29,8 +29,6 @@ public partial class Booking
 
     public int? ParkId { get; set; }
 
-    public int? ParkiGuid { get; set; }
-
     public string? ParkName { get; set; }
 
     public string? Cartid { get; set; }
@@ -60,4 +58,8 @@ public partial class Booking
     public DateTime? ResEnd { get; set; }
 
     public int? Tentsites { get; set; }
+
+    public string? ParkGuid { get; set; }
+
+    public int? NumDays { get; set; }
 }
