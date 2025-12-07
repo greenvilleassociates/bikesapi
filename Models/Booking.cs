@@ -29,6 +29,8 @@ public partial class Booking
 
     public int? ParkId { get; set; }
 
+    public int? ParkiGuid { get; set; }
+
     public string? ParkName { get; set; }
 
     public string? Cartid { get; set; }
