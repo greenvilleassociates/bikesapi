@@ -767,6 +767,8 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Hashid).HasColumnName("hashid");
             entity.Property(e => e.Loginstatus).HasColumnName("loginstatus");
             entity.Property(e => e.Username).HasColumnName("username");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Uiorigin).HasColumnName("uiorigin");
         });
 
         modelBuilder.Entity<Usernotice>(entity =>
