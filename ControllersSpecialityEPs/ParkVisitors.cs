@@ -72,7 +72,7 @@ public static class ParksCalendarSpeciality
                 return TypedResults.Accepted("NewPark Reservation Added for: " + input.ParkId);
             }
         })
-        .WithName("AddSomeParkGuests")
+        .WithName("AddGuestCalendar")
         .WithOpenApi();
 
       group.MapGet("/guests/", (int park, int addGuests) =>
