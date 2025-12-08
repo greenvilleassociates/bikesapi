@@ -31,13 +31,13 @@ public partial class Park
 
     public string? Parklogourl { get; set; }
 
-    public int? Maxvisitors { get; set; }
+    public int Maxvisitors { get; set; }
 
-    public int? Currentvisitors { get; set; }
+    public int Currentvisitors { get; set; }
 
-    public int? Currentvisitorschildren { get; set; }
+    public int Currentvisitorschildren { get; set; }
 
-    public int? Currentvisitorsadults { get; set; }
+    public int Currentvisitorsadults { get; set; }
 
     public int? Maxcampsites { get; set; }
 

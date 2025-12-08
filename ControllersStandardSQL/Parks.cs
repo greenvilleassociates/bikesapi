@@ -124,24 +124,7 @@ public static class ParksEndpoints
         .WithName("SetParkLimits")
         .WithOpenApi();
         
-           //[HttpPut]
-        group.MapPut("/guests/{Removesomeguests}", async (int park, int Removesomeguests) =>
-        {
-            using (var context = new DirtbikeContext())
-            {
-                Park[] someParks = context.Parks.Where(m => m.ParkId == park).ToArray();
-                context.Parks.Attach(someParks[0]);
-             	someParks[0].Currentvisitors = someParks[0].Currentvisitors - Removesomeguests;
-            	await context.SaveChangesAsync();
-                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "REMOVEGUESTS", 1, "TEST", "TEST");
-                return TypedResults.Accepted("Updated ParkID: " + park);
-            }
-        })
-        .WithName("RemoveSomeParkGuests")
-        .WithOpenApi();
-     
-    
-    
+ 
 
         group.MapPost("/", async (Park input) =>
         {
