@@ -20,7 +20,7 @@ namespace Enterprise.Controllers
                 var cart = service.CreateCart(dto);
 
                 Enterpriseservices.ApiLogger.logapi("CGCartAPI", "005", "CGCREATE", 1, "Create", $"Cart {dto.Uid}");
-                return cart == null ? Results.BadRequest("User not found") : Results.Created($"/api/CGCart/1", cart);
+                return cart == null ? Results.BadRequest("User not found") : Results.Created($"/api/CGCart/1", cart); //CHECK THIS BEFORE SUBMISSION.
             })
             .WithName("CGCreateCart")
             .WithOpenApi();
