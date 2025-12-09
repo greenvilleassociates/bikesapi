@@ -43,6 +43,7 @@ namespace dirtbike.api.Services
 
             foreach (var itemDto in dto.Items)
             {
+                // Lookup by GUID string
                 var park = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id);
                 if (park == null)
                 {
@@ -118,14 +119,15 @@ namespace dirtbike.api.Services
 
             foreach (var itemDto in dto.Items)
             {
+                var park = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id);
                 var item = new Cartitem
                 {
-                    Cartid = cart.Id.ToString(),
+                    Cartid = cart.Id,
                     Cartitemdate = DateTime.UtcNow,
                     Itemdescription = itemDto.Park.ParkName,
                     Itemqty = itemDto.NumAdults + itemDto.NumChildren,
                     Itemtotals = itemDto.TotalPrice,
-                    Parkid = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id)?.ParkId,
+                    Parkid = park?.ParkId,
                     Parkname = itemDto.Park.ParkName,
                     Adults = itemDto.NumAdults,
                     Children = itemDto.NumChildren,
@@ -142,7 +144,7 @@ namespace dirtbike.api.Services
             var booking = new Booking
             {
                 Uid = dto.Uid,
-                Cartid = cart.Id.ToString(),
+                Cartid = cart.Id.ToString(), // safe conversion
                 TransactionId = dto.PaymentId,
                 QuantityAdults = dto.Items.Sum(i => i.NumAdults),
                 QuantityChildren = dto.Items.Sum(i => i.NumChildren),
