@@ -1,4 +1,4 @@
-﻿using System;
+/*﻿using System;
 using System.Collections.Generic;
 
 namespace dirtbike.api.Models;
@@ -86,4 +86,4 @@ public partial class Employee1
     public string? Lastname { get; set; }
 
     public string? Username { get; set; }
-}
+}*/
