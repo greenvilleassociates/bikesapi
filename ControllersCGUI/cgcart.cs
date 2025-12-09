@@ -25,6 +25,7 @@ namespace Enterprise.Controllers
             .WithName("CGCreateCart")
             .WithOpenApi();
 
+            /*
             // READ all carts for a user
             group.MapGet("/user/{userid}", (int userid) =>
             {
@@ -71,7 +72,7 @@ namespace Enterprise.Controllers
                 return deleted ? Results.Ok($"Deleted Cart {cartId}") : Results.NotFound();
             })
             .WithName("CGDeleteCart")
-            .WithOpenApi();
+            .WithOpenApi();*/
         }
     }
 }
