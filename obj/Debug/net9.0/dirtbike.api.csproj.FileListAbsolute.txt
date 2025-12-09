@@ -1810,3 +1810,6 @@ X:/G547/bikesapi/bin/Debug/net9.0/ControllersStandardSQL/Auth/userCredential.jso
 X:/G547/bikesapi/bin/Debug/net9.0/ControllersStandardSQL/Auth/userList.json
 /home/547G/bikesapi/bin/Debug/net9.0/ControllersStandardSQL/Auth/userCredential.json
 /home/547G/bikesapi/bin/Debug/net9.0/ControllersStandardSQL/Auth/userList.json
+/home/547G/bikesapi/bin/Debug/net9.0/DTO/examplepost.json
+/home/547G/bikesapi/bin/Debug/net9.0/ServicesCGEPS/resultfail.json
+/home/547G/bikesapi/bin/Debug/net9.0/ServicesCGEPS/resultsuccessexample.json
