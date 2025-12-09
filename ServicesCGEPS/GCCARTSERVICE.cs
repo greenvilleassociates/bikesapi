@@ -122,7 +122,7 @@ namespace dirtbike.api.Services
             {
                 var item = new Cartitem
                 {
-                    Cartid = cart.Id,
+                    Cartid = cart.Id.ToString(),
                     Cartitemdate = DateTime.UtcNow,
                     Itemdescription = itemDto.Park.ParkName,
                     Itemqty = itemDto.NumAdults + itemDto.NumChildren,
