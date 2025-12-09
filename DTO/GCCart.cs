@@ -61,3 +61,4 @@ namespace dirtbike.api.Services
         public string Result { get; set; } = "Success";
         public string? Message { get; set; }
     }
+}
