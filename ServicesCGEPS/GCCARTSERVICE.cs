@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Text.Json;
+using System.Collections.Generic;
 using dirtbike.api.Data;
 using dirtbike.api.Models;
 using Enterpriseservices; // <-- bring in SessionsLogger
@@ -23,7 +26,6 @@ namespace dirtbike.api.Services
                     Message = "User not found"
                 });
 
-                // 🔎 Log failure with inbound DTO JSON
                 var dtoJson = JsonSerializer.Serialize(dto);
                 SessionsLogger.SessionLog(
                     "UnknownUser",
@@ -56,18 +58,18 @@ namespace dirtbike.api.Services
                 {
                     int requestedVisitors = itemDto.NumAdults + itemDto.NumChildren;
                     int existingVisitors = context.Cartitems
-                        .Where(ci => ci.Parkid == park.Id &&
+                        .Where(ci => ci.Parkid == park.ParkId &&
                                      ci.ResStart <= itemDto.ResEnd &&
                                      ci.ResEnd >= itemDto.ResStart)
                         .Sum(ci => (ci.Adults ?? 0) + (ci.Children ?? 0));
 
-                    if (existingVisitors + requestedVisitors > park.MaxCapacity)
+                    if (existingVisitors + requestedVisitors > park.Maxvisitors)
                     {
                         result.Items.Add(new ItemResult
                         {
                             ItemNumber = itemIndex,
                             Result = "FailCapacity",
-                            Message = $"Park {park.ParkName} exceeded capacity for {itemDto.ResStart:d} - {itemDto.ResEnd:d}"
+                            Message = $"Park {park.Name} exceeded capacity for {itemDto.ResStart:d} - {itemDto.ResEnd:d}"
                         });
                         anyFailures = true;
                     }
@@ -77,19 +79,16 @@ namespace dirtbike.api.Services
                         {
                             ItemNumber = itemIndex,
                             Result = "Success",
-                            Message = $"Park {park.ParkName} booking accepted"
+                            Message = $"Park {park.Name} booking accepted"
                         });
                     }
                 }
                 itemIndex++;
             }
 
-            // If any failures, reject whole cart
             if (anyFailures)
             {
                 result.OverallResult = "Fail";
-
-                // 🔎 Log failure with result JSON
                 var resultJson = JsonSerializer.Serialize(result);
                 SessionsLogger.SessionLog(
                     user.Username,
@@ -102,7 +101,6 @@ namespace dirtbike.api.Services
                 return result;
             }
 
-            // ✅ Otherwise, persist Cart, Items, Payment, Booking...
             var cart = new Cart
             {
                 Uid = dto.Uid,
@@ -118,7 +116,6 @@ namespace dirtbike.api.Services
             context.Carts.Add(cart);
             context.SaveChanges();
 
-            // Add CartItems...
             foreach (var itemDto in dto.Items)
             {
                 var item = new Cartitem
@@ -128,7 +125,7 @@ namespace dirtbike.api.Services
                     Itemdescription = itemDto.Park.ParkName,
                     Itemqty = itemDto.NumAdults + itemDto.NumChildren,
                     Itemtotals = itemDto.TotalPrice,
-                    Parkid = itemDto.Park.Id,
+                    Parkid = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id)?.ParkId,
                     Parkname = itemDto.Park.ParkName,
                     Adults = itemDto.NumAdults,
                     Children = itemDto.NumChildren,
@@ -142,7 +139,6 @@ namespace dirtbike.api.Services
             }
             context.SaveChanges();
 
-            // Add Booking...
             var booking = new Booking
             {
                 Uid = dto.Uid,
@@ -162,7 +158,6 @@ namespace dirtbike.api.Services
             context.Bookings.Add(booking);
             context.SaveChanges();
 
-            // Add Payment...
             var payment = new Payment
             {
                 BookingId = booking.BookingId,
@@ -178,7 +173,6 @@ namespace dirtbike.api.Services
             result.BookingId = booking.BookingId;
             result.OverallResult = "Success";
 
-            // 🔎 Log success with result JSON
             var successJson = JsonSerializer.Serialize(result);
             SessionsLogger.SessionLog(
                 user.Username,
@@ -189,6 +183,42 @@ namespace dirtbike.api.Services
                 successJson);
 
             return result;
+        }
+
+        // === Additional CRUD methods ===
+
+        public List<Cart> GetCartsByUserId(int userId)
+        {
+            using var context = new DirtbikeContext();
+            return context.Carts.Where(c => c.CartId == userId).ToList();
+        }
+
+        public Cart? GetCartById(int cartId)
+        {
+            using var context = new DirtbikeContext();
+            return context.Carts.FirstOrDefault(c => c.Id == cartId);
+        }
+
+        public bool UpdateCart(Cart updatedCart)
+        {
+            using var context = new DirtbikeContext();
+            var existing = context.Carts.FirstOrDefault(c => c.Id == updatedCart.Id);
+            if (existing == null) return false;
+
+            context.Entry(existing).CurrentValues.SetValues(updatedCart);
+            context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteCart(int cartId)
+        {
+            using var context = new DirtbikeContext();
+            var cart = context.Carts.FirstOrDefault(c => c.Id == cartId);
+            if (cart == null) return false;
+
+            context.Carts.Remove(cart);
+            context.SaveChanges();
+            return true;
         }
     }
 }
