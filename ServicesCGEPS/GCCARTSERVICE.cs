@@ -170,6 +170,18 @@ namespace dirtbike.api.Services
             context.Payments.Add(payment);
             context.SaveChanges();
 
+            // Add SalesSession for completed transaction
+            var salesSession = new SalesSession
+            {
+                Uid = dto.Uid,
+                SessionStart = DateTime.UtcNow.ToString("o"),
+                SessionEnd = DateTime.UtcNow.ToString("o"),
+                CartId1 = cart.Id,
+                CartPayload = JsonSerializer.Serialize(dto)
+            };
+            context.SalesSessions.Add(salesSession);
+            context.SaveChanges();
+
             result.BookingId = booking.BookingId;
             result.OverallResult = "Success";
 
