@@ -127,7 +127,7 @@ namespace dirtbike.api.Services
                     Itemdescription = itemDto.Park.ParkName,
                     Itemqty = itemDto.NumAdults + itemDto.NumChildren,
                     Itemtotals = itemDto.TotalPrice,
-                    Parkid = park?.ParkId,
+                    Parkid = park?.ParkId, // numeric FK
                     Parkname = itemDto.Park.ParkName,
                     Adults = itemDto.NumAdults,
                     Children = itemDto.NumChildren,
