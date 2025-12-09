@@ -1,10 +1,11 @@
+using System.Text.Json;
 using dirtbike.api.Data;
 using dirtbike.api.Models;
-using dirtbike.api.DTOs;
+using Enterpriseservices; // <-- bring in SessionsLogger
 
 namespace dirtbike.api.Services
 {
-public class CGCartService
+    public class CGCartService
     {
         public CartProcessingResult CreateCart(CGCompletedCartDto dto)
         {
@@ -21,6 +22,17 @@ public class CGCartService
                     Result = "FailUserNotFound",
                     Message = "User not found"
                 });
+
+                // 🔎 Log failure with inbound DTO JSON
+                var dtoJson = JsonSerializer.Serialize(dto);
+                SessionsLogger.SessionLog(
+                    "UnknownUser",
+                    dto.UserId,
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    "CartService",
+                    $"Cart POST failed. Payload={dtoJson}");
+
                 return result;
             }
 
@@ -76,10 +88,21 @@ public class CGCartService
             if (anyFailures)
             {
                 result.OverallResult = "Fail";
+
+                // 🔎 Log failure with result JSON
+                var resultJson = JsonSerializer.Serialize(result);
+                SessionsLogger.SessionLog(
+                    user.Username,
+                    user.Id,
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    "CartService",
+                    resultJson);
+
                 return result;
             }
 
-            // Otherwise, persist Cart, Items, Payment, Booking
+            // ✅ Otherwise, persist Cart, Items, Payment, Booking...
             var cart = new Cart
             {
                 Uid = dto.Uid,
@@ -87,51 +110,84 @@ public class CGCartService
                 Transactiontotal = dto.TransactionTotal,
                 Paymentid = dto.PaymentId,
                 IsCheckedOut = 1,
-                DateAdded = DateOnly.FromDateTime(DateTime.UtcNow)
+                DateAdded = DateOnly.FromDateTime(DateTime.UtcNow),
+                Totalcartitems = dto.Items.Count,
+                Multipleitems = dto.Items.Count > 1 ? 1 : 0,
+                Parkname = dto.Items.Count == 1 ? dto.Items[0].Park.ParkName : null
             };
             context.Carts.Add(cart);
             context.SaveChanges();
 
+            // Add CartItems...
             foreach (var itemDto in dto.Items)
             {
                 var item = new Cartitem
                 {
                     Cartid = cart.Id,
+                    Cartitemdate = DateTime.UtcNow,
+                    Itemdescription = itemDto.Park.ParkName,
+                    Itemqty = itemDto.NumAdults + itemDto.NumChildren,
+                    Itemtotals = itemDto.TotalPrice,
                     Parkid = itemDto.Park.Id,
                     Parkname = itemDto.Park.ParkName,
                     Adults = itemDto.NumAdults,
                     Children = itemDto.NumChildren,
-                    Itemtotals = itemDto.TotalPrice,
+                    NumDays = itemDto.NumDays,
                     ResStart = itemDto.ResStart,
                     ResEnd = itemDto.ResEnd,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    Userid = dto.UserId
                 };
                 context.Cartitems.Add(item);
             }
             context.SaveChanges();
 
-            var payment = new Payment
-            {
-                PaymentId = dto.PaymentId,
-                UserId = user.Id,
-                Amount = dto.TransactionTotal,
-                CreatedDate = DateTime.UtcNow
-            };
-            context.Payments.Add(payment);
-            context.SaveChanges();
-
+            // Add Booking...
             var booking = new Booking
             {
-                CartId = cart.Id,
-                PaymentId = payment.Id,
-                UserId = user.Id,
-                CreatedDate = DateTime.UtcNow
+                Uid = dto.Uid,
+                Cartid = cart.Id.ToString(),
+                TransactionId = dto.PaymentId,
+                QuantityAdults = dto.Items.Sum(i => i.NumAdults),
+                QuantityChildren = dto.Items.Sum(i => i.NumChildren),
+                TotalAmount = dto.TransactionTotal,
+                Totalcartitems = dto.Items.Count,
+                CartDetailsJson = JsonSerializer.Serialize(dto),
+                Reservationstatus = "Confirmed",
+                Reservationtype = "Online",
+                ResStart = dto.Items.Min(i => i.ResStart),
+                ResEnd = dto.Items.Max(i => i.ResEnd),
+                NumDays = dto.Items.Sum(i => i.NumDays)
             };
             context.Bookings.Add(booking);
             context.SaveChanges();
 
-            result.BookingId = booking.Id;
+            // Add Payment...
+            var payment = new Payment
+            {
+                BookingId = booking.BookingId,
+                Userid = user.Id,
+                AmountPaid = dto.TransactionTotal,
+                TransactionId = dto.PaymentId,
+                PaymentDate = DateTime.UtcNow.ToString("o"),
+                Transtype = "Sale"
+            };
+            context.Payments.Add(payment);
+            context.SaveChanges();
+
+            result.BookingId = booking.BookingId;
             result.OverallResult = "Success";
+
+            // 🔎 Log success with result JSON
+            var successJson = JsonSerializer.Serialize(result);
+            SessionsLogger.SessionLog(
+                user.Username,
+                user.Id,
+                DateTime.UtcNow,
+                DateTime.UtcNow,
+                "CartService",
+                successJson);
+
             return result;
         }
     }
