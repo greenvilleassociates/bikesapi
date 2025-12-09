@@ -1,4 +1,4 @@
-using dirtbike.api.Data;
+/*.using dirtbike.api.Data;
 using dirtbike.api.Models;
 using dirtbike.api.DTOs;
 
@@ -160,3 +160,4 @@ namespace dirtbike.api.Services
         }
     }
 }
+*/
