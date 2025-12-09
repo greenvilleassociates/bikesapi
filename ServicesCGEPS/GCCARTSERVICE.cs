@@ -59,7 +59,7 @@ namespace dirtbike.api.Services
                 {
                     int requestedVisitors = itemDto.NumAdults + itemDto.NumChildren;
                     int existingVisitors = context.Cartitems
-                        .Where(ci => ci.Parkid == park.ParkId &&
+                        .Where(ci => ci.Parkid == park.Id &&
                                      ci.ResStart <= itemDto.ResEnd &&
                                      ci.ResEnd >= itemDto.ResStart)
                         .Sum(ci => (ci.Adults ?? 0) + (ci.Children ?? 0));
@@ -127,7 +127,7 @@ namespace dirtbike.api.Services
                     Itemdescription = itemDto.Park.ParkName,
                     Itemqty = itemDto.NumAdults + itemDto.NumChildren,
                     Itemtotals = itemDto.TotalPrice,
-                    Parkid = park?.ParkId, // numeric FK
+                    Parkid = park?.Id, // numeric FK
                     Parkname = itemDto.Park.ParkName,
                     Adults = itemDto.NumAdults,
                     Children = itemDto.NumChildren,
