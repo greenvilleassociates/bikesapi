@@ -43,7 +43,9 @@ namespace dirtbike.api.Services
 
             foreach (var itemDto in dto.Items)
             {
-                var park = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id);
+
+            	var park = context.Parks.FirstOrDefault(p => p.Id == itemDto.Park.Id);
+            
                 if (park == null)
                 {
                     result.Items.Add(new ItemResult
