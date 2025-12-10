@@ -143,7 +143,7 @@ public static class UserEndpoints
 .WithName("UpdateUser")
 .WithOpenApi();
 
- group.MapPost("/", async (User input) =>
+ group.MapPost("/specialityuser/", async (User input) =>
 {
     using (var context = new DirtbikeContext())
     {
@@ -208,9 +208,26 @@ public static class UserEndpoints
         );
     }
 })
-.WithName("CreateUser")
+.WithName("SpecialityCreateUserForFutureUseWithoutTriggers")
 .WithOpenApi();
 
+ group.MapPost("/", async (User input) =>
+{
+    using (var context = new DirtbikeContext())
+    {
+        // STEP 1: Add new User record
+        context.Users.Add(input);
+        await context.SaveChangesAsync(); // input.Userid is now populated
+       
+        Enterpriseservices.ApiLogger.logapi(
+            Enterpriseservices.Globals.ControllerAPIName,
+            Enterpriseservices.Globals.ControllerAPINumber,
+            "NEWRECORD", 1, "TEST", "TEST"
+        );
+    }
+})
+.WithName("CreateUserWhenTriggersExistInSql")
+.WithOpenApi();
 
 
         group.MapDelete("/{id}", async (int id) =>
