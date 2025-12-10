@@ -25,7 +25,7 @@ public static class ParksEndpoints
         {
             using (var context = new DirtbikeContext())
             {
-                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "GETALL", 1, "TEST", "TEST");
+                //Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "GETALL", 1, "TEST", "TEST");
                 return context.Parks.ToList();
             }
 

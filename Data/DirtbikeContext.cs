@@ -422,9 +422,7 @@ public partial class DirtbikeContext : DbContext
                 .HasColumnType("INT")
                 .HasColumnName("frisbee");
             entity.Property(e => e.Hqbranchid).HasColumnName("hqbranchid");
-            entity.Property(e => e.Id)
-                .HasColumnType("string")
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Iscanadian)
                 .HasColumnType("INT")
                 .HasColumnName("iscanadian");
