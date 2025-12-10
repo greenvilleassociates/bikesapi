@@ -224,6 +224,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.ItemType).HasColumnName("itemType");
             entity.Property(e => e.Johnstotals).HasColumnName("johnstotals");
             entity.Property(e => e.Multipleitems).HasColumnName("multipleitems");
+            entity.Property(e => e.ParkGuid).HasColumnName("parkGuid");
             entity.Property(e => e.ParkId).HasColumnName("parkId");
             entity.Property(e => e.Parkname).HasColumnName("parkname");
             entity.Property(e => e.Paymentid).HasColumnName("paymentid");
@@ -255,6 +256,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Loyaltyid).HasColumnName("loyaltyid");
             entity.Property(e => e.Loyaltyvendor).HasColumnName("loyaltyvendor");
             entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Useridstring).HasColumnName("useridstring");
         });
 
         modelBuilder.Entity<Cartitem>(entity =>
@@ -287,6 +289,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.NumDays)
                 .HasColumnType("INT")
                 .HasColumnName("numDays");
+            entity.Property(e => e.ParkGuid).HasColumnName("parkGuid");
             entity.Property(e => e.Parkid).HasColumnName("parkid");
             entity.Property(e => e.Parkidasstring).HasColumnType("string");
             entity.Property(e => e.Parkname).HasColumnName("parkname");
@@ -404,9 +407,9 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.ChildPrice)
                 .HasColumnType("double")
                 .HasColumnName("childPrice");
-            entity.Property(e => e.Columns)
-                .HasColumnType("currentcampsites int")
-                .HasColumnName("columns");
+            entity.Property(e => e.Currentcampsites)
+                .HasColumnType("INT")
+                .HasColumnName("currentcampsites");
             entity.Property(e => e.Currentvisitors)
                 .HasColumnType("INT")
                 .HasColumnName("currentvisitors");
@@ -763,12 +766,12 @@ public partial class DirtbikeContext : DbContext
             entity.ToTable("userlogs");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Hashedpassword).HasColumnName("hashedpassword");
             entity.Property(e => e.Hashid).HasColumnName("hashid");
             entity.Property(e => e.Loginstatus).HasColumnName("loginstatus");
-            entity.Property(e => e.Username).HasColumnName("username");
-            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Uiorigin).HasColumnName("uiorigin");
+            entity.Property(e => e.Username).HasColumnName("username");
         });
 
         modelBuilder.Entity<Usernotice>(entity =>
