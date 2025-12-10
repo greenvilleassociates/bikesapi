@@ -407,9 +407,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.ChildPrice)
                 .HasColumnType("double")
                 .HasColumnName("childPrice");
-            entity.Property(e => e.Currentcampsites)
-                .HasColumnType("INT")
-                .HasColumnName("currentcampsites");
+            entity.Property(e => e.Currentcampsites).HasColumnType("INT");
             entity.Property(e => e.Currentvisitors)
                 .HasColumnType("INT")
                 .HasColumnName("currentvisitors");

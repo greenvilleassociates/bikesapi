@@ -40,8 +40,6 @@ public partial class Park
     public int Currentvisitorsadults { get; set; }
 
     public int? Maxcampsites { get; set; }
-    
-    public int? Currentcampsites { get; set; }
 
     public string? State { get; set; }
 
@@ -100,4 +98,6 @@ public partial class Park
     public double? ChildPrice { get; set; }
 
     public double? AdultPrice { get; set; }
+
+    public int? Currentcampsites { get; set; }
 }
