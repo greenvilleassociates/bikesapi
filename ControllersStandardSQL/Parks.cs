@@ -20,18 +20,20 @@ public static class ParksEndpoints
         Globals.ControllerAPIName = "ParksAPI";
         Globals.ControllerAPINumber = "002";
 
-        //[HttpGet]
-        group.MapGet("/", () =>
-        {
-            using (var context = new DirtbikeContext())
-            {
-                //Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "GETALL", 1, "TEST", "TEST");
-                return context.Parks.ToList();
-            }
+  group.MapGet("/", () =>
+{
+    using var context = new DirtbikeContext();
 
-        })
-        .WithName("GetAllParkss")
-        .WithOpenApi();
+    Enterpriseservices.ApiLogger.logapi(
+        Enterpriseservices.Globals.ControllerAPIName,
+        Enterpriseservices.Globals.ControllerAPINumber,
+        "GETALL", 1, "TEST", "TEST"
+    );
+
+    return context.Parks.ToList();
+})
+.WithName("GetAllParks")
+.WithOpenApi();
 
         //[HttpGet]
         group.MapGet("/{id}", (int id) =>
@@ -67,12 +69,7 @@ public static class ParksEndpoints
                 if (input.Trailmapurl != null) someParks[0].Trailmapurl = input.Trailmapurl;
                 if (input.Parklogourl != null) someParks[0].Parklogourl = input.Parklogourl;
                 if (input.State != null) someParks[0].State = input.State;
-            	if (input.Maxvisitors != null) someParks[0].Maxvisitors = input.Maxvisitors;
-				if (input.Currentvisitors != null) someParks[0].Currentvisitors = input.Currentvisitors;
-				if (input.Currentvisitorschildren != null) someParks[0].Currentvisitorschildren = input.Currentvisitorschildren;
-				if (input.Currentvisitorsadults != null) someParks[0].Currentvisitorsadults = input.Currentvisitorsadults;
-				if (input.Maxcampsites != null) someParks[0].Maxcampsites = input.Maxcampsites;
-				if (input.State != null) someParks[0].State = input.State;
+            	if (input.State != null) someParks[0].State = input.State;
             	if (input.Pic1url != null) someParks[0].Pic1url = input.Pic1url;
 				if (input.Pic2url != null) someParks[0].Pic2url = input.Pic2url;
 				if (input.Pic3url != null) someParks[0].Pic3url = input.Pic3url;
