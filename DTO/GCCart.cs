@@ -16,6 +16,8 @@ namespace dirtbike.api.Services
         public required string Uid { get; set; }
         public required double TransactionTotal { get; set; }
         public required string PaymentId { get; set; }
+    	public DateTime? ResStart { get; set; }   // ✅ add here
+    	public DateTime? ResEnd { get; set; }     // ✅ add here
         public List<CGCompletedCartItemDto> Items { get; set; } = new();
     }
 

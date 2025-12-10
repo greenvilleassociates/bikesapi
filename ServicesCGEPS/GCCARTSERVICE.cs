@@ -112,7 +112,10 @@ namespace dirtbike.api.Services
                 DateAdded = DateOnly.FromDateTime(DateTime.UtcNow),
                 Totalcartitems = dto.Items.Count,
                 Multipleitems = dto.Items.Count > 1 ? 1 : 0,
-                Parkname = dto.Items.Count == 1 ? dto.Items[0].Park.ParkName : null
+                Parkname = dto.Items.Count == 1 ? dto.Items[0].Park.ParkName : null,
+                //NEW LINES FOR RESERVATION PARENT.
+                ResStart = dto.Items.Min(i => i.ResStart),
+    			ResEnd = dto.Items.Max(i => i.ResEnd)
             };
             context.Carts.Add(cart);
             context.SaveChanges();
