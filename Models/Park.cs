@@ -32,14 +32,17 @@ public partial class Park
     public string? Parklogourl { get; set; }
 
     public int Maxvisitors { get; set; }
+ = 200;
 
     public int Currentvisitors { get; set; }
+ = 0;
 
-    public int Currentvisitorschildren { get; set; }
+    public int Currentvisitorschildren { get; set; } = 0;
 
-    public int Currentvisitorsadults { get; set; }
+    public int Currentvisitorsadults { get; set; } = 0;
 
-    public int? Maxcampsites { get; set; }
+    public int Maxcampsites { get; set; }
+ = 100;
 
     public string? State { get; set; }
 
@@ -99,5 +102,6 @@ public partial class Park
 
     public double? AdultPrice { get; set; }
 
-    public int? Currentcampsites { get; set; }
+    public int Currentcampsites { get; set; }
+ = 0;
 }

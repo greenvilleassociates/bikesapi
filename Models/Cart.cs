@@ -52,4 +52,6 @@ public partial class Cart
     public int? Tentsites { get; set; }
 
     public string? ParkGuid { get; set; }
+
+    public string? Possource { get; set; }
 }

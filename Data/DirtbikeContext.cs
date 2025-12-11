@@ -174,6 +174,7 @@ public partial class DirtbikeContext : DbContext
                 .HasColumnType("INT")
                 .HasColumnName("numDays");
             entity.Property(e => e.ParkId).HasColumnName("ParkID");
+            entity.Property(e => e.Possource).HasColumnName("POSSOURCE");
             entity.Property(e => e.ResEnd)
                 .HasColumnType("date")
                 .HasColumnName("resEnd");
@@ -228,6 +229,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.ParkId).HasColumnName("parkId");
             entity.Property(e => e.Parkname).HasColumnName("parkname");
             entity.Property(e => e.Paymentid).HasColumnName("paymentid");
+            entity.Property(e => e.Possource).HasColumnName("POSSOURCE");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.ResEnd)
                 .HasColumnType("date")
@@ -293,6 +295,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.Parkid).HasColumnName("parkid");
             entity.Property(e => e.Parkidasstring).HasColumnType("string");
             entity.Property(e => e.Parkname).HasColumnName("parkname");
+            entity.Property(e => e.Possource).HasColumnName("POSSOURCE");
             entity.Property(e => e.Productid).HasColumnName("productid");
             entity.Property(e => e.Qrcodeurl).HasColumnName("qrcodeurl");
             entity.Property(e => e.ResEnd)
@@ -390,6 +393,8 @@ public partial class DirtbikeContext : DbContext
         {
             entity.HasKey(e => e.ParkId);
 
+            entity.HasIndex(e => new { e.Name, e.Address }, "idx_parks_name_address").IsUnique();
+
             entity.Property(e => e.ParkId).HasColumnName("ParkID");
             entity.Property(e => e.AdultPrice)
                 .HasColumnType("double")
@@ -422,7 +427,9 @@ public partial class DirtbikeContext : DbContext
                 .HasColumnType("INT")
                 .HasColumnName("frisbee");
             entity.Property(e => e.Hqbranchid).HasColumnName("hqbranchid");
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("string")
+                .HasColumnName("id");
             entity.Property(e => e.Iscanadian)
                 .HasColumnType("INT")
                 .HasColumnName("iscanadian");
@@ -494,7 +501,9 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.DatePosted).HasColumnName("datePosted");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Displayname).HasColumnName("displayname");
+            entity.Property(e => e.ParkGuid).HasColumnName("ParkGUID");
             entity.Property(e => e.ParkId).HasColumnName("parkId");
+            entity.Property(e => e.Possource).HasColumnName("POSSOURCE");
             entity.Property(e => e.ReasonDescription).HasColumnName("reasonDescription");
             entity.Property(e => e.ReviewManagerId).HasColumnName("reviewManagerId");
             entity.Property(e => e.Stars).HasColumnName("stars");
@@ -509,6 +518,7 @@ public partial class DirtbikeContext : DbContext
             entity.Property(e => e.AmountRefunded).HasColumnType("double");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
             entity.Property(e => e.Fullname).HasColumnName("fullname");
+            entity.Property(e => e.Possource).HasColumnName("POSSOURCE");
             entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
             entity.Property(e => e.Transtype).HasColumnName("transtype");
             entity.Property(e => e.Userid)
