@@ -32,7 +32,7 @@ public static class ParksCalendarSpeciality
 
 
            //[HttpPut]
-        group.MapPut("/guests/{Removesomeguests}", async (int park, int Removesomeguests) =>
+        group.MapPut("/removeguests/", async (int park, int Removesomeguests) =>
         {
             using (var context = new DirtbikeContext())
             {
@@ -47,7 +47,7 @@ public static class ParksCalendarSpeciality
         .WithName("RemoveSomeParkGuests")
         .WithOpenApi();
 
-    group.MapPut("/guests/{Addsomeguests}", async (int park, int Addsomeguests) =>
+    group.MapPut("/addguests/", async (int park, int Addsomeguests) =>
         {
             using (var context = new DirtbikeContext())
             {
@@ -55,7 +55,7 @@ public static class ParksCalendarSpeciality
                 context.Parks.Attach(someParks[0]);
              	someParks[0].Currentvisitors = someParks[0].Currentvisitors + Addsomeguests;
             	await context.SaveChangesAsync();
-                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "REMOVEGUESTS", 1, "TEST", "TEST");
+                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "ADDGUESTS", 1, "TEST", "TEST");
                 return TypedResults.Accepted("Updated ParkID: " + park);
             }
         })
@@ -68,14 +68,14 @@ public static class ParksCalendarSpeciality
             {
                 context.ParkCalendars.Add(input);
                 await context.SaveChangesAsync();
-                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "REMOVEGUESTS", 1, "TEST", "TEST");
+                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "ADDCALENDARENTRYPARK", 1, "TEST", "TEST");
                 return TypedResults.Accepted("NewPark Reservation Added for: " + input.ParkId);
             }
         })
         .WithName("AddGuestCalendar")
         .WithOpenApi();
 
-      group.MapGet("/guests/", (int park, int addGuests) =>
+      group.MapGet("/capacitycheck/", (int park, int addGuests) =>
         {
         using var context = new DirtbikeContext();
 
@@ -95,7 +95,7 @@ public static class ParksCalendarSpeciality
         int newVisitorCount = 0;
         newVisitorCount = parkEntity.Currentvisitors + addGuests;
 
-        Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "CHECK_CAPACITY", 1, "TEST", "TEST");
+        Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "ADDGUESTS_CAPACITY", 1, "TEST", "TEST");
 
     // Use a standard if block
         if (newVisitorCount <= parkEntity.Maxvisitors)

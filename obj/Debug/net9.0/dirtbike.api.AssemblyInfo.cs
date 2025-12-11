@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e3d6cdae6f16d73b129a7961f81b4dd775d5476")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b66722ca8db206f586912f3e405c26c8e5dfec4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dirtbike.api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
