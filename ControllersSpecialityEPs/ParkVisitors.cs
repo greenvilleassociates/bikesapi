@@ -38,10 +38,11 @@ public static class ParksCalendarSpeciality
             {
                 Park[] someParks = context.Parks.Where(m => m.ParkId == park).ToArray();
                 context.Parks.Attach(someParks[0]);
-             	someParks[0].Currentvisitors = someParks[0].Currentvisitors - Removesomeguests;
+             	int temp = someParks[0].Currentvisitors;
+                someParks[0].Currentvisitors = someParks[0].Currentvisitors - Removesomeguests;
             	await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "REMOVEGUESTS", 1, "TEST", "TEST");
-                return TypedResults.Accepted("Updated ParkID: " + park);
+                return TypedResults.Accepted("Updated ParkID: " + park + "Previous Visitors: " + temp + "CurrentVisitors: " + someParks[0].Currentvisitors);
             }
         })
         .WithName("RemoveSomeParkGuests")
@@ -53,10 +54,11 @@ public static class ParksCalendarSpeciality
             {
                 Park[] someParks = context.Parks.Where(m => m.ParkId == park).ToArray();
                 context.Parks.Attach(someParks[0]);
+                int temp = someParks[0].Currentvisitors;
              	someParks[0].Currentvisitors = someParks[0].Currentvisitors + Addsomeguests;
             	await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "ADDGUESTS", 1, "TEST", "TEST");
-                return TypedResults.Accepted("Updated ParkID: " + park);
+                return TypedResults.Accepted("Updated ParkID: " + park + "Previous Visitors: " + temp + "CurrentVisitors: " + someParks[0].Currentvisitors);
             }
         })
         .WithName("AddSomeParkGuests")
