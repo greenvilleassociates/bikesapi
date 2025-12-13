@@ -58,6 +58,8 @@ public static class UserPictureEndpoints
             {
                 UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Id == id).ToArray();
                 context.UserPictures.Attach(someUserPicture[0]);
+            	someUserPicture[0].Activepictureurl = input.Activepictureurl;
+            	someUserPicture[0].Somepicture = input.Somepicture;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.Id);
@@ -65,7 +67,7 @@ public static class UserPictureEndpoints
 
 
         })
-        .WithName("UpdateUserPicture")
+        .WithName("UpdateUserPictureByRecordId")
         .WithOpenApi();
 
         //[HttpPut]
@@ -75,6 +77,8 @@ public static class UserPictureEndpoints
             {
                 UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Userid == userid).ToArray();
                 context.UserPictures.Attach(someUserPicture[0]);
+                someUserPicture[0].Activepictureurl = input.Activepictureurl;
+            	someUserPicture[0].Somepicture = input.Somepicture;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.Id);
