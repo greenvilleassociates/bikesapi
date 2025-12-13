@@ -66,7 +66,76 @@ namespace Enterprise.Controllers
             })
             .WithName("CheckCurrentUsers")
             .WithOpenApi();
-        }
+        
+             group.MapGet("/currentusers/", (string ParkGuid) =>
+            {
+                using var context = new DirtbikeContext();
+
+                var parkEntity = context.Parks.FirstOrDefault(m => m.Id == ParkGuid);
+                if (parkEntity == null)
+                {
+                    return "-99";
+                }
+
+                if (parkEntity.Currentvisitors == null)
+                {
+                    parkEntity.Currentvisitors = 0;
+                }
+
+                Enterpriseservices.ApiLogger.logapi(
+                    Enterpriseservices.Globals.ControllerAPIName,
+                    Enterpriseservices.Globals.ControllerAPINumber,
+                    "ADDGUESTS_CAPACITY",
+                    1,
+                    "TEST",
+                    "TEST"
+                );
+
+                return $"{parkEntity.Maxvisitors} / {parkEntity.Currentvisitors}";
+            })
+            .WithName("CheckCurrentUsersByGUID")
+            .WithOpenApi();
+        
+        
+        /*
+        group.MapGet("/currentparkcapacity/", (int park) =>
+            {
+                using var context = new DirtbikeContext();
+
+                var parkEntity = context.Parks.FirstOrDefault(m => m.ParkId == park);
+                if (parkEntity == null)
+                {
+                    return "-99";
+                }
+
+                if (parkEntity.Currentvisitors == null)
+                {
+                    parkEntity.Currentvisitors = 0;
+                }
+
+                Enterpriseservices.ApiLogger.logapi(
+                    Enterpriseservices.Globals.ControllerAPIName,
+                    Enterpriseservices.Globals.ControllerAPINumber,
+                    "ADDGUESTS_CAPACITY",
+                    1,
+                    "TEST",
+                    "TEST"
+                );
+            
+            	var cap_payload = new ParkCapacityPayload();
+            	{
+                cappayload.Maxvisitors = parkEntity.Maxvisitors;
+                cappayload.Currentvisitors = parkEntity.Currentvisitors;
+            	cappayload.Maxcampsites = parkEntity.Maxcampsites;	
+            	cappayload.Currentcampsites = parkEntity.Currentcampsites;
+            	cappayload.Currentadults = parkEntity.Currentadults;
+            	cappayload.Currentchildren = parkEntity.Currentchildren;
+                }
+              return cap_payload;
+            })
+            .WithName("CapacityPayloadCheck")
+            .WithOpenApi();
+            }
 
         public class ParkCapacityPayload
         {
@@ -78,6 +147,6 @@ namespace Enterprise.Controllers
             public int Currentcampsites { get; set; }
             public int Currentadults { get; set; }
             public int Currentchildren { get; set; }
-        }
-    }
+        }*/
+    }}
 }
