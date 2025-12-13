@@ -58,10 +58,6 @@ public static class UserPictureEndpoints
             {
                 UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Id == id).ToArray();
                 context.UserPictures.Attach(someUserPicture[0]);
-                if (input.Activepictureurl != null) someUserPicture[0].Activepictureurl = input.Activepictureurl;
-                if (input.Somepicture != null) someUserPicture[0].Somepicture = input.Somepicture;
-                if (input.Useridstring != null) someUserPicture[0].Useridstring = input.Useridstring;
-                someUserPicture[0].Userid = input.Userid;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.Id);
@@ -73,16 +69,12 @@ public static class UserPictureEndpoints
         .WithOpenApi();
 
         //[HttpPut]
-        group.MapPut("/userid/{Userid}", async (int Userid, UserPicture input) =>
+        group.MapPut("/userid/{userid}", async (int userid, UserPicture input) =>
         {
             using (var context = new DirtbikeContext())
             {
-                UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Userid == Userid).ToArray();
+                UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Userid == userid).ToArray();
                 context.UserPictures.Attach(someUserPicture[0]);
-                if (input.Activepictureurl != null) someUserPicture[0].Activepictureurl = input.Activepictureurl;
-                if (input.Somepicture != null) someUserPicture[0].Somepicture = input.Somepicture;
-                if (input.Useridstring != null) someUserPicture[0].Useridstring = input.Useridstring;
-                someUserPicture[0].Userid = input.Userid;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.Id);
@@ -92,8 +84,6 @@ public static class UserPictureEndpoints
         })
         .WithName("UpdateUserPictureByUserid")
         .WithOpenApi();
-
-
 
 
 
