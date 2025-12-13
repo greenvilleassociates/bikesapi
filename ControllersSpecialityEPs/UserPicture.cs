@@ -69,6 +69,28 @@ public static class UserPictureEndpoints
         .WithName("UpdateUserPicture")
         .WithOpenApi();
 
+        //[HttpPut]
+        group.MapPut("/userid/{Userid}", async (int Userid, UserPicture input) =>
+        {
+            using (var context = new DirtbikeContext())
+            {
+                UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Userid == Userid).ToArray();
+                context.UserPictures.Attach(someUserPicture[0]);
+                if (input.Activepictureurl != null) someUserPicture[0].Activepictureurl = input.Activepictureurl;
+                await context.SaveChangesAsync();
+                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
+                return TypedResults.Accepted("Updated ID:" + input.Id);
+            }
+
+
+        })
+        .WithName("UpdateUserPictureByUserid")
+        .WithOpenApi();
+
+
+
+
+
         group.MapPost("/", async (UserPicture input) =>
         {
             using (var context = new DirtbikeContext())
@@ -85,6 +107,11 @@ public static class UserPictureEndpoints
         })
         .WithName("CreateUserPicture")
         .WithOpenApi();
+
+
+
+
+
 
         group.MapDelete("/{id}", async (int id) =>
         {
