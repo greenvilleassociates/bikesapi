@@ -77,6 +77,8 @@ public static class UserPictureEndpoints
                 UserPicture[] someUserPicture = context.UserPictures.Where(m => m.Userid == Userid).ToArray();
                 context.UserPictures.Attach(someUserPicture[0]);
                 if (input.Activepictureurl != null) someUserPicture[0].Activepictureurl = input.Activepictureurl;
+                if (input.Somepicture != null) someUserPicture[0].Somepicture = input.Somepicture;
+                if (input.Useridstring != null) someUserPicture[0].Useridstring = input.Useridstring;
                 await context.SaveChangesAsync();
                 Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "PUTWITHID", 1, "Test", "Test");
                 return TypedResults.Accepted("Updated ID:" + input.Id);
