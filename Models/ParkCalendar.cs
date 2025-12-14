@@ -22,4 +22,6 @@ public partial class ParkCalendar
     public int? QtyAdults { get; set; }
 
     public int? QtyChildren { get; set; }
+
+	public string? ParkGuid { get; set; }
 }
