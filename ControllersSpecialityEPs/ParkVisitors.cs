@@ -38,6 +38,26 @@ namespace Enterprise.Controllers
         .WithName("RemoveSomeParkGuests")
         .WithOpenApi();
 
+    
+    //ADD GUESTS BY GUID
+      group.MapPut("/addguestsguid/", async (string park, int Addsomeguests) =>
+        {
+            using (var context = new DirtbikeContext())
+            {
+                Park[] someParks = context.Parks.Where(m => m.Id == park).ToArray();
+                context.Parks.Attach(someParks[0]);
+                int temp = someParks[0].Currentvisitors;
+             	someParks[0].Currentvisitors = someParks[0].Currentvisitors + Addsomeguests;
+            	await context.SaveChangesAsync();
+                Enterpriseservices.ApiLogger.logapi(Enterpriseservices.Globals.ControllerAPIName, Enterpriseservices.Globals.ControllerAPINumber, "ADDGUESTS", 1, "TEST", "TEST");
+                return TypedResults.Accepted("Updated ParkID: " + park + "Previous Visitors: " + temp + "CurrentVisitors: " + someParks[0].Currentvisitors);
+            }
+        })
+        .WithName("AddSomeParkGuestsByGuid")
+        .WithOpenApi();
+    
+    
+    
     group.MapPut("/addguests/", async (int park, int Addsomeguests) =>
         {
             using (var context = new DirtbikeContext())
